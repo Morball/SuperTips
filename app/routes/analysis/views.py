@@ -74,13 +74,13 @@ def analysis(match_id):
             
                             
             bets=event["odds"]
-            print(f"getting team lins for {event["odds"][0]["name"]} and  {event["odds"][2]["name"]}")
+            print(f'getting team lins for {event["odds"][0]["name"]} and  {event["odds"][2]["name"]}')
             teamlinks=(get_team_link(event["odds"][0]["name"],event["sport"]["name"]),get_team_link(event["odds"][2]["name"],event["sport"]["name"]))
             print(teamlinks)
             
             sport=event["sport"]["name"]
-            team1=f"NO TEAM LINK PROVIDED, PLEASE FETCH HISTORIC DATA FROM FLASHSCORE.COM FOR {event["competitors"][0]["name"]} AND FILL team1"
-            team2=f"NO TEAM LINK PROVIDED, PLEASE FETCH HISTORIC DATA FROM FLASHSCORE.COM FOR {event["competitors"][1]["name"]} AND FILL team2"
+            team1=f'NO TEAM LINK PROVIDED, PLEASE FETCH HISTORIC DATA FROM FLASHSCORE.COM FOR {event["competitors"][0]["name"]} AND FILL team1'
+            team2=f'NO TEAM LINK PROVIDED, PLEASE FETCH HISTORIC DATA FROM FLASHSCORE.COM FOR {event["competitors"][1]["name"]} AND FILL team2'
     
             if teamlinks[0] != '' and teamlinks[0] is not None :
                 team1=requests.get(teamlinks[0]).text
