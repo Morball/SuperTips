@@ -202,6 +202,7 @@
                                                         <th>Id</th>
                                                         <th>Username</th>
                                                         <th>Email</th>
+                                                        <th>Last Ip</th>
                                                         <th>Sub expire</th>
                                                         <th>Signed Up</th>
                                                         <th>Refs</th>
@@ -221,6 +222,7 @@
                                                         <td><input value="{{user.id}}" name="id" style="display:hidden" type="hidden">{{user.id}}</td>
                                                         <td><input name="user" style="border:1px rgb(155, 155, 155)" type="text" value="{{user.username}}"></td>
                                                         <td><input name="email" style="border:1px rgb(155, 155, 155)" type="text" value="{{user.email}}"></td>
+                                                        <td>{{user.ip}}</td>
                                                         <td><input name="sub_expire" style="border:1px rgb(155, 155, 155)" type="text" value="{{user.sub_expire}}"></td>
                                                         <td><input name="signup_date" style="border:1px rgb(155, 155, 155)" type="text" value="{{user.signup_date}}"></td>
                                                         <td><input name="refs" style="border:1px rgb(155, 155, 155)" type="text" value="{{user.refs}}"></td>

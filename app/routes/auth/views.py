@@ -28,10 +28,15 @@ def login():
             return redirect(url_for('login'))
         
         user=User.query.filter_by(username=username, password=passwd_hash).first()
-        if user is  None:
+        if user is None:
             flash('Incorrect login details', 'error')
             return redirect(url_for('login'))
 
+
+
+        ip_address=request.headers.get("X-Forwarded-For",request.remote_addr)
+        user.ip=ip_address    #update to latest ip address login
+        db.session.commit()
         session["user_id"]=user.id
         return redirect(url_for('profile'))
         
@@ -48,7 +53,8 @@ def register():
         email = request.form['email']
         password_conf=request.form["password_conf"]
         signup_ref=request.form["signup_ref"]
-        
+        ip_address=request.headers.get("X-Forwarded-For",request.remote_addr)
+
         if User.query.filter_by(email=email).first() is not None:
             flash('This email is already in use', 'error')
             return redirect(url_for('register'))
@@ -82,7 +88,7 @@ def register():
         passwd_hash=sha256(password.encode("utf-8")).hexdigest()
         
         
-        newuser=User(username=username,email=email,password=passwd_hash, signup_ref=signup_ref)
+        newuser=User(username=username,email=email,password=passwd_hash, signup_ref=signup_ref,ip=ip_address)
         db.session.add(newuser)
         db.session.commit()
         flash('Sign up successful', 'success')
