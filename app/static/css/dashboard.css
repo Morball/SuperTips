@@ -1070,6 +1070,10 @@ color:white;
     margin-right: 10px;
     margin-left: 30px;
   }
+  .betting-Item{
+    width:fit-content;
+    align-content:center;
+  }
 
 .searchbox{
 

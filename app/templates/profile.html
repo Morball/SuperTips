@@ -136,7 +136,7 @@
         <div class="user-info">Estimated earnings : <span>${{user.refs*3.5}}</span></div>
         <div class="user-button-box">
           <a class="user-button-logout" href="{{url_for('logout')}}">Log out</a>
-          <button class="user-button-withdraw">Request withdraw</button>
+          <A class="user-button-withdraw" href="{{url_for('contact')}}">Request withdraw</A>
         </div>
       </div>
       
@@ -148,6 +148,7 @@
         </center>
         <div class="main-title">My Bets</div>
 
+        <div>
         {% for match in ctx %}
 
         
@@ -191,6 +192,7 @@
 
 
         {%endfor%}
+      </div>
 
 
 

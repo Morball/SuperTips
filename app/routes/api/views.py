@@ -45,25 +45,29 @@ def getUpcoming():
             eventdetails=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetEventDetails?culture=en-GB&timezoneOffset=-120&integration=mrbitro&deviceType=1&numFormat=en-GB&eventId={event["id"]}")
             event["odds"]=eventdetails["odds"]
             event["startDate"]=datetime.strptime(event["startDate"],"%Y-%m-%dT%H:%M:%SZ").strftime("%d.%m.%Y, %H:%M")
-
+            
             for competitor in eventdetails["competitors"]:
-                teamsearchresults=requests.get(f"https://s.livesport.services/api/v2/search/",params={"q":competitor["name"]}).json()
-                if len(teamsearchresults)!=0:
-                    
-                    if len(teamsearchresults[0]["images"])!=0:
-                        for res in teamsearchresults:
-                                if res["participantTypes"]:
-                                    for partype in res["participantTypes"]:
-                                        if partype["name"]=="Player" and event["sportId"] not in [77,68,72,71,84,81]:
-                                            if len(res) >1:
+                    teamsearchresults=requests.get(f"https://s.livesport.services/api/v2/search/",params={"q":competitor["name"]}).json()
+                    if len(teamsearchresults)!=0:
+                        try:
+                            if len(teamsearchresults[0]["images"])!=0:
+                                for res in teamsearchresults:
+                                        if res["participantTypes"]:
+                                            for partype in res["participantTypes"]:
                                                 
-                                                competitor["img"]="https://static.flashscore.com/res/image/data/"+res[1]["images"][0]["path"]
+                                                    if partype["name"]=="Player" and event["sportId"] not in [77,68,72,71,84,81]:
+                                                        if len(res) >1:
+                                                            
+                                                            competitor["img"]="https://static.flashscore.com/res/image/data/"+res[1]["images"][0]["path"]
 
-                                        else:
-                                            if len(res["images"]) !=0:
-                  
-                                                competitor["img"]="https://static.flashscore.com/res/image/data/"+res[0]["images"][0]["path"]
-                                           
+                                                    else:
+                                                        if len(res["images"]) >=0:
+                                                            if len(res)>=0:
+                                                                competitor["img"]="https://static.flashscore.com/res/image/data/"+res[0]["images"][0]["path"]
+                                                            else:
+                                                                pass
+                        except Exception as e:
+                            pass
                 
             event["competitors"]=eventdetails["competitors"]
             event["isLive"]=False

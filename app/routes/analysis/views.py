@@ -66,7 +66,8 @@ def analysis(match_id):
         if match_analysis is not None: 
             
             event["openai_analysis"]=json.loads(match_analysis.match_analysis_content)
-        
+            return render_template("analysis.html",ctx=event)
+
         
         
         else:
@@ -105,6 +106,7 @@ def analysis(match_id):
         
             return render_template("analysis.html",ctx=event)
     except Exception as e:
+      
         flash("Could not create match analysis, please try again later","error")
         print("FOUND EXCEPTION IN ANALYSIS",e)
         return redirect(url_for("dashboard"))
