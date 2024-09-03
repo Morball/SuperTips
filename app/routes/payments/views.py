@@ -10,7 +10,7 @@ from datetime import timedelta
 from app.db.models import Subs_Bought
 # The library needs to be configured with your account's secret key.
 # Ensure the key is kept out of any version control system you might be using.
-stripe.api_key = "sk_test_51HXB9EETvIzkH3GdLDfHxCnyVZ49mstclYbwqYGnmS6gVacyZ5bv3ATCsZyOAMYhRWVR7wrtw5PpmFtDnIL5EJJs00uwbrQibj"
+stripe.api_key = "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"
 
 # This is your Stripe CLI webhook secret for testing your endpoint locally.
 endpoint_secret = 'whsec_9a5a3b8b3b39c82ccc7bd113e89407ac3a3ff49e16a536c980837a1235f57052'
