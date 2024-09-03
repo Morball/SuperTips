@@ -42,7 +42,7 @@ def getUpcoming():
         allevents=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetUpcoming?culture=en-GB&timezoneOffset=0&integration=mrbitro&deviceType=1&numFormat=en-GB&sportId=66&eventCount=0")
         for event in allevents["events"]:
 
-            eventdetails=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetEventDetails?culture=en-GB&timezoneOffset=-120&integration=mrbitro&deviceType=1&numFormat=en-GB&eventId={event["id"]}")
+            eventdetails=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetEventDetails?culture=en-GB&timezoneOffset=-120&integration=mrbitro&deviceType=1&numFormat=en-GB&eventId={event['id']}")
             event["odds"]=eventdetails["odds"]
             event["startDate"]=datetime.strptime(event["startDate"],"%Y-%m-%dT%H:%M:%SZ").strftime("%d.%m.%Y, %H:%M")
             
@@ -86,7 +86,7 @@ def getUpcoming():
         
         for event in allevents["events"]:
             if str(event["champId"])==str(compid):
-                eventdetails=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetEventDetails?culture=en-GB&timezoneOffset=-180&integration=mrbitro&deviceType=1&numFormat=en-GB&countryCode=RO&eventId={event["id"]}")
+                eventdetails=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetEventDetails?culture=en-GB&timezoneOffset=-180&integration=mrbitro&deviceType=1&numFormat=en-GB&countryCode=RO&eventId={event['id']}")
                 event["odds"]=eventdetails["odds"]
                 event["startDate"]=datetime.strptime(event["startDate"],"%Y-%m-%dT%H:%M:%SZ").strftime("%d.%m.%Y, %H:%M")
     
