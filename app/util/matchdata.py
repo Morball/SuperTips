@@ -83,7 +83,7 @@ def getDashboardLive():
 
     for event in all_liveEvents["events"]:
         if event["champId"] in [2936,2941,3087,3111,8697,9835,32735,3140,4004,4927,3164,3793,4767,5282,2950]:
-            eventdetails=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetEventDetails?culture=en-GB&timezoneOffset=-120&integration=mrbitro&deviceType=1&numFormat=en-GB&eventId={event["id"]}")
+            eventdetails=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetEventDetails?culture=en-GB&timezoneOffset=-120&integration=mrbitro&deviceType=1&numFormat=en-GB&eventId={event['id']}")
             if eventdetails is not None:
 
                 event["odds"]=eventdetails["odds"]
@@ -116,7 +116,7 @@ def getLiveNow(sportid=None, leagueid=None):
         for event in all_liveEvents["events"]:
             if int(event["champId"]) ==int(leagueid):
 
-                eventdetails=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetEventDetails?culture=en-GB&timezoneOffset=-120&integration=mrbitro&deviceType=1&numFormat=en-GB&eventId={event["id"]}")
+                eventdetails=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetEventDetails?culture=en-GB&timezoneOffset=-120&integration=mrbitro&deviceType=1&numFormat=en-GB&eventId={event['id']}")
                 if eventdetails is None:
                     return ""
                 event["odds"]=eventdetails["odds"]
@@ -145,7 +145,7 @@ def getLiveNow(sportid=None, leagueid=None):
         for event in all_liveEvents["events"]:
             if event["champId"] in [2936,2941,3087,3111,8697,9835,32735,3140,4004,4927,3164,3793,4767,5282,2950]:
 
-                eventdetails=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetEventDetails?culture=en-GB&timezoneOffset=-120&integration=mrbitro&deviceType=1&numFormat=en-GB&eventId={event["id"]}")
+                eventdetails=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetEventDetails?culture=en-GB&timezoneOffset=-120&integration=mrbitro&deviceType=1&numFormat=en-GB&eventId={event['id']}")
                 if eventdetails is None:
                     return ""
                 event["odds"]=eventdetails["odds"]
@@ -173,7 +173,7 @@ def getLiveNow(sportid=None, leagueid=None):
         all_liveEvents=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetLivenow?culture=en-GB&timezoneOffset=-120&integration=mrbitro&deviceType=1&numFormat=en-GB&eventCount=10&sportId=66")
 
         for event in all_liveEvents["events"]:
-            eventdetails=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetEventDetails?culture=en-GB&timezoneOffset=-120&integration=mrbitro&deviceType=1&numFormat=en-GB&eventId={event["id"]}")
+            eventdetails=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetEventDetails?culture=en-GB&timezoneOffset=-120&integration=mrbitro&deviceType=1&numFormat=en-GB&eventId={event['id']}")
             if eventdetails is not None:
 
                 event["odds"]=eventdetails["odds"]
@@ -206,7 +206,7 @@ def getevents(sportid,leagueid):
     #https://sb2frontend-altenar2.biahosted.com/api/widget/GetUpcoming?culture=en-GB&timezoneOffset=-120&integration=mrbitro&deviceType=1&numFormat=en-GB&countryCode=RO&sportId=145&eventCount=20
     for event in allevents["events"]:
         if str(event["champId"])==str(leagueid):
-            eventdetails=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetEventDetails?culture=en-GB&integration=mrbitro&deviceType=1&numFormat=en-GB&eventId={event["id"]}")
+            eventdetails=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetEventDetails?culture=en-GB&integration=mrbitro&deviceType=1&numFormat=en-GB&eventId={event['id']}")
             event["odds"]=eventdetails["odds"]
             event["startDate"]=datetime.strptime(event["startDate"],"%Y-%m-%dT%H:%M:%SZ").strftime("%d.%m.%Y, %H:%M")
             
@@ -248,7 +248,7 @@ def getmotd():
     for event in allevents["events"]:
         
         if str(event["champId"]) in ["3793","2813","17146","2942","3102","2941","2950","2954","9376","2943","3143","3145","3032","4600","2961","3024"]:
-            eventdetails=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetEventDetails?culture=en-GB&integration=mrbitro&deviceType=1&numFormat=en-GB&eventId={event["id"]}")
+            eventdetails=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetEventDetails?culture=en-GB&integration=mrbitro&deviceType=1&numFormat=en-GB&eventId={event['id']}")
             event["odds"]=eventdetails["odds"]
             event["startDate"]=datetime.strptime(event["startDate"],"%Y-%m-%dT%H:%M:%SZ").strftime("%d.%m.%Y, %H:%M")
             
