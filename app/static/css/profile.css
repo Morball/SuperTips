@@ -1,0 +1,901 @@
+* {
+  font-family: "Inter";
+  box-sizing: border-box;
+  color: white;
+  padding: 0px;
+  margin: 0px;
+}
+
+a {
+  text-decoration: none;
+}
+
+html {
+  background: #1e1e1e;
+
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow-x: hidden;
+  background: radial-gradient(
+    160.18% 67.38% at 52.42% 54.14%,
+    #44357d 41.5%,
+    rgba(109, 103, 228, 0) 100%
+  );
+}
+
+header {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0px auto;
+
+  position: fixed;
+
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 40px 80px 0px;
+
+  z-index: 999;
+
+  transition: all 0.2s ease;
+}
+
+.header-logo {
+  width: 230px;
+
+  font-family: Open Sans;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0em;
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.logo-icon {
+  color: #efc738;
+}
+
+.header-menu {
+  display: flex;
+}
+
+.header-menu-item {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.header-menu-item:hover {
+  color:#efc738;
+  
+  transition:all 0.15s ease-in-out;
+  }
+  
+.header-menu-item:not(:last-child) {
+  margin-right: 40px;
+}
+
+.header-button {
+  width: 60px;
+  height: 60px;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  outline: none;
+  border-radius: 50%;
+}
+
+.header-mobile-button {
+  display: none;
+  cursor: pointer;
+}
+
+.header-scrolled {
+  background-color: rgba(0, 0, 0, 0.4);
+  padding-bottom: 10px;
+}
+
+.header-mobile-button-line {
+  width: 30px;
+  height: 3px;
+  margin: 3px 0;
+
+  background-color: white;
+  transition: transform 0.4s, opacity 0.4s;
+}
+
+.header-mobile-button.active .header-mobile-button-line:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.header-mobile-button.active .header-mobile-button-line:nth-child(2) {
+  opacity: 0;
+}
+
+.header-mobile-button.active .header-mobile-button-line:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+.mobile-menu {
+  display: none;
+}
+
+.mobile-menu-item {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0em;
+}
+
+.mobile-menu-item:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.mobile-menu-auth-button {
+  height: 50px;
+
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0em;
+  text-align: center;
+
+  background: transparent;
+  border-radius: 20px;
+  border: 3px solid #efc738;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobile-menu.active {
+  position: fixed;
+
+  width: 250px;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  padding: 40px 20px;
+
+  background: #261f46;
+
+  animation: slideDown 0.5s ease;
+
+  z-index: 9999;
+}
+
+main {
+  position: relative;
+
+  flex: 1;
+
+  width: 100%;
+  max-width: 1920px;
+  margin: 0px auto;
+
+  display: flex;
+
+  padding: 190px 80px 40px;
+}
+
+.sidebar {
+  width: 580px;
+  height: fit-content;
+
+  padding: 20px 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: #c2b6f133;
+  border-radius: 20px;
+
+  padding: 40px 75px;
+}
+
+.main {
+  flex: 1;
+  margin-left: 80px;
+}
+
+.main-title {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 44px;
+  letter-spacing: 0em;
+  text-align: left;
+
+  margin-bottom: 20px;
+
+  margin-left: 100px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #644cc5;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #44357d;
+}
+
+.user-image {
+  width: 120px;
+  height: 120px;
+}
+
+.user-name {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0em;
+  text-align: left;
+
+  margin-top: 10px;
+}
+
+.user-date {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0em;
+  text-align: left;
+  margin-top: 10px;
+
+  color: #c2b6f1;
+}
+
+.user-date span {
+  color: white;
+}
+
+.user-item-container {
+  width: 100%;
+  margin-top: 20px;
+
+  margin-bottom: 20px;
+}
+
+.user-item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-item-label {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0em;
+  text-align: left;
+
+  margin-bottom: 14px;
+}
+
+.user-item-input-container {
+  width: 100%;
+  height: 60px;
+  border: 3px solid #c2b6f1;
+  border-radius: 20px;
+
+  display: flex;
+  align-items: center;
+}
+
+.user-item-input {
+  width: calc(100% - 45px);
+  height: 60px;
+
+  background: transparent;
+  border: none;
+  outline: none;
+
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0em;
+  text-align: left;
+
+  padding: 0px 0px 0px 20px;
+}
+
+.user-item-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 25px;
+}
+
+.user-item-icon i {
+  color: #c2b6f1;
+}
+
+.user-item:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.user-info {
+  width: 100%;
+
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #c2b6f1;
+}
+
+.user-info span {
+  color: white;
+}
+
+.user-info:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.user-button-box {
+  margin-top: 20px;
+  display: flex;
+}
+
+.user-button-box button:not(:last-child) {
+  margin-right: 20px;
+}
+
+.user-button-logout {
+  padding: 7px 27px;
+  background: #ff6363;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0em;
+  text-align: center;
+  border-radius: 10px;
+  border: 3px solid #ff6363;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.user-button-logout:hover {
+  color: #ff6363;
+  background: transparent;
+}
+
+.user-button-withdraw {
+  padding: 7px 27px;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0em;
+  text-align: center;
+  border-radius: 10px;
+  border: 3px solid #ffffff;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.user-button-withdraw:hover {
+  color: #efc738;
+  border: 3px solid #efc738;
+}
+
+.betting-container {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 400px 400px;
+  column-gap: 40px;
+  row-gap: 30px;
+}
+
+.betting-Item {
+  width: 400px;
+  height: fit-content;
+  background: #c2b6f133;
+  border-radius: 20px;
+
+  padding: 30px 40px;
+}
+
+.betting-team-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+
+.betting-team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.betting-team-image {
+  width: 60px;
+  height: 60px;
+}
+
+.betting-team-name {
+  margin-top: 10px;
+
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.betting-status-time-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.betting-status-container {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.betting-time-container {
+  margin-top: 10px;
+
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.betting-button-box {
+  flex: 1;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 40px;
+}
+
+.betting-button-box button:not(:last-child) {
+  margin-right: 20px;
+}
+
+.betting-button {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0em;
+  text-align: left;
+  padding: 5px 15px;
+  border: 3px solid #ffffff;
+  background: transparent;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.betting-button:hover {
+  color: #efc738;
+  border: 3px solid #efc738;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 999;
+
+  overflow: auto;
+}
+
+.bet-modal-content {
+  position: relative;
+
+  width: 100%;
+  max-width: 500px;
+
+  padding: 40px 30px;
+  margin: 150px auto;
+
+  border-radius: 20px;
+  background: #c2b6f1;
+
+  transform: scale(0);
+  transition: all 0.3s;
+}
+
+.bet-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+
+  font-size: 35px;
+  line-height: 1;
+  font-weight: bold;
+
+  color: #aaa;
+  z-index: 9999;
+
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.bet-modal-close:hover,
+.bet-modal-close:focus {
+  color: black;
+  text-decoration: none;
+}
+
+.history-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.history-title {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0em;
+}
+
+.history-content {
+  margin-top: 30px;
+  margin-bottom: 60px;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0em;
+}
+
+.history-item:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.history-item-success p {
+  color: #63ff7c;
+}
+
+.history-item-warning p {
+  color: #ffe663;
+}
+
+.history-item-fail p {
+  color: #ff6363;
+}
+
+.history-button {
+  width: fit-content;
+  margin: 0 auto;
+
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0em;
+  text-align: left;
+
+  padding: 12px 18px;
+  border-radius: 10px;
+
+  background: none;
+  border: 3px solid white;
+
+  cursor: pointer;
+
+  transition: all 0.2s;
+}
+
+.history-button:hover {
+  border: 3px solid #644cc5;
+  color: #644cc5;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media screen and (max-width: 1768px) {
+  .sidebar {
+    width: 480px;
+    padding: 40px 50px;
+  }
+  .main {
+    flex: 1;
+    margin-left: 20px;
+  }
+
+  .betting-container {
+    grid-template-columns: 330px 330px;
+    column-gap: 20px;
+  }
+
+  .betting-Item {
+    width: 330px;
+    padding: 20px 15px;
+  }
+
+  .betting-team-image {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  header {
+    padding: 40px 40px 0px;
+  }
+
+  .header-logo {
+    width: 200px;
+    font-size: 28px;
+  }
+
+  .header-menu-item {
+    font-size: 20px;
+  }
+
+  .header-menu-item:not(:last-child) {
+    margin-right: 30px;
+  }
+
+  main {
+    padding: 190px 40px 40px;
+  }
+
+  .betting-container {
+    grid-template-columns: 330px;
+    column-gap: 20px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .header-menu {
+    display: none;
+  }
+
+  .header-button {
+    display: none;
+  }
+
+  .header-mobile-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+    border: none;
+  }
+
+  .main-title {
+    width: 100%;
+    font-size: 36px;
+    margin-left: 0px;
+    text-align: center;
+  }
+
+  .category-title {
+    font-size: 20px;
+  }
+
+  .category-content-item {
+    font-size: 14px;
+  }
+
+  .category-content-item:not(:last-child) {
+    margin-bottom: 16px;
+  }
+
+  main {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sidebar {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: #c2b6f133;
+    border-radius: 20px;
+
+    padding: 40px 50px;
+  }
+
+  .main {
+    width: 100%;
+    margin-left: 0px;
+
+    margin-top: 30px;
+  }
+
+  .betting-container {
+    grid-template-columns: 330px 330px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header-logo {
+    width: 170px;
+    font-size: 24px;
+  }
+
+  .main-title {
+    font-size: 28px;
+  }
+
+  .category-container {
+    display: none;
+  }
+
+  .sidebar-show-icon {
+    border: none;
+    background: transparent;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sidebar {
+    padding: 40px 30px;
+  }
+
+  .user-name {
+    font-size: 28px;
+  }
+
+  .user-date {
+    font-size: 14px;
+  }
+
+  .user-item-label {
+    font-size: 20px;
+  }
+
+  .user-item-input {
+    font-size: 20px;
+  }
+
+  .user-info {
+    font-size: 14px;
+  }
+
+  .betting-container {
+    grid-template-columns: 280px;
+  }
+
+  .betting-Item {
+    width: 280px;
+    padding: 20px 15px;
+  }
+  .betting-team-image {
+    width: 45px;
+    height: 45px;
+  }
+
+  .betting-team-name {
+    font-size: 14px;
+  }
+
+  .betting-status-container {
+    font-size: 20px;
+  }
+
+  .betting-time-container {
+    margin-top: 10px;
+
+    font-size: 14px;
+  }
+
+  main {
+    padding: 190px 10px 40px;
+  }
+
+  .bet-modal-content {
+    width: calc(100% - 80px);
+    padding: 40px 20px;
+    max-width: 100%;
+  }
+
+  .history-item:not(:last-child) {
+    margin-bottom: 16px;
+  }
+
+  .history-title {
+    font-size: 20px;
+  }
+  .history-item {
+    font-size: 14px;
+  }
+
+  .history-item p {
+    max-width: 70%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .user-button-box {
+    flex-direction: column;
+  }
+
+  .user-button-box button:not(:last-child) {
+    margin-right: 0px;
+    margin-bottom: 20px;
+  }
+
+  .bet-modal-content {
+    width: calc(100% - 40px);
+    padding: 40px 20px;
+    max-width: 100%;
+  }
+}

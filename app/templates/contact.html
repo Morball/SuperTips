@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  
+<!-- Mirrored from super-tips-rho.vercel.app/contact.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Mar 2024 04:32:22 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SuperTips Contact</title>
+    <link rel="icon" href="../static/images/icon.jpg">
+    <link rel="stylesheet" href="../static/css/contact.css" />
+    <style>
+      .alertbox{
+      height:45px;
+      width:fit-content;
+      display:flex;
+      justify-content:center;
+      padding:10px;
+      align-items:center;
+      border-radius:25px;
+      font-size:large;
+      margin-bottom:25px;
+      }
+      
+      
+      .alert-success{
+        background-color:rgb(101, 243, 101);
+        color:white;
+      }
+      
+      .alert-error{
+      background-color:rgb(252, 48, 48);
+      color:white;
+      }
+      
+      </style>
+    <script
+      src="../static/kit.fontawesome.com/1e03d39da6.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Open+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <a class="header-logo" href="{{url_for('home')}}">
+        <i class="fa-solid fa-star logo-icon"></i>
+        SuperTips
+      </a>
+      <div class="header-menu">
+        <a class="header-menu-item" href="{{url_for('home')}}">Home</a>
+        <a class="header-menu-item" href="/#pricing">Pricing</a>
+        <a class="header-menu-item" href="{{url_for('contact')}}">Contact</a>
+        <a class="header-menu-item" href="/#testimonials"
+          >Testimonials</a
+        >
+      </div>
+
+      {%if "user_id" not in session%}
+      <a class="header-button" href="{{url_for('login')}}">Sign In</a>
+      {%else%}
+      <a class="header-menu-item" href="{{url_for('dashboard')}}">Dashboard</a>
+
+      
+      {%endif%}
+
+      <button class="header-mobile-button">
+        <div class="header-mobile-button-line"></div>
+        <div class="header-mobile-button-line"></div>
+        <div class="header-mobile-button-line"></div>
+      </button>
+    </header>
+    <nav class="mobile-menu">
+      <a class="mobile-menu-item" href="{{url_for('home')}}">Home</a>
+      <a class="mobile-menu-item" href="/#pricing">Pricing</a>
+      <a class="mobile-menu-item" href="{{url_for('contact')}}">Contact</a>
+      <a class="mobile-menu-item" href="/#testimonials"
+        >Testimonials</a
+      >
+      {%if "user_id" not in session%}
+      <a class="header-button" href="{{url_for('login')}}">Sign In</a>
+      {%else%}
+      <a class="header-menu-item" href="{{url_for('dashboard')}}">Dashboard</a>
+
+      
+      {%endif%}
+    </nav>
+
+    <main>
+
+  
+
+
+      <div class="contact-container">
+        <center>
+          {%for cat,msg in get_flashed_messages(with_categories=true)%}
+          <h2 class="alertbox alert-{{cat}}">{{msg}}</h2>
+          {%endfor%}
+        </center>
+        <div class="contact-title">Contact us</div>
+        <div class="contact-description">
+          Email, call, or complete the form to get in touch with us
+        </div>
+        <div class="contact-email">info@supertips.com</div>
+        <div class="contact-number">231-321-213</div>
+        <div class="contact-social">
+          <a class="contact-social-item" href="#"
+            ><i class="fa-brands fa-twitter"></i
+          ></a>
+          <a class="contact-social-item" href="#"
+            ><i class="fa-brands fa-linkedin"></i
+          ></a>
+          <a class="contact-social-item" href="#"
+            ><i class="fa-brands fa-instagram"></i
+          ></a>
+          <a class="contact-social-item" href="#"
+            ><i class="fa-solid fa-infinity"></i
+          ></a>
+        </div>
+      </div>
+
+      <form method="POST" action="/contact">
+        <h1 class="title">Get in touch</h1>
+        <div class="formItem">
+          <p class="formItemLabel">Full name</p>
+          <div class="formItemInputContainer">
+            <input type="text" name="firstname" placeholder="First name" class="input-first" />
+            <input type="text" name="lastname" placeholder="Last name" class="input-last" />
+          </div>
+        </div>
+        <div class="formItem">
+          <p class="formItemLabel">Email</p>
+          <div class="formItemInputContainer">
+            <input type="text" name="email"placeholder="Your email" class="input-email" />
+          </div>
+        </div>
+        <div class="formItem">
+          <p class="formItemLabel">Description</p>
+          <div class="formItemInputContainer">
+            <textarea
+              placeholder="How can we help?"
+              rows="4"
+              name="content"
+              class="input-textarea"
+            ></textarea>
+          </div>
+        </div>
+        <button class="formButton">Submit</button>
+      </form>
+
+      <img src="../static/images/cloud1.png" class="cloudImage1" />
+      <img src="../static/images/cloud1.png" class="cloudImage2" />
+      <img src="../static/images/cloud1.png" class="cloudImage3" />
+    </main>
+
+    <footer class="footer">
+      <p class="footer-company">SuperTips &copy; 2024</p>
+      <div class="footer-menu">
+        <a class="footer-menu-item" href="#">Product</a>
+        <a class="footer-menu-item" href="#">Legal</a>
+        <a class="footer-menu-item" href="{{url_for('contact')}}">Contact</a>
+      </div>
+      <div class="footer-social">
+        <a class="footer-social-item" href="#"
+          ><i class="fa-brands fa-twitter"></i
+        ></a>
+        <a class="footer-social-item" href="#"
+          ><i class="fa-brands fa-linkedin"></i
+        ></a>
+        <a class="footer-social-item" href="#"
+          ><i class="fa-brands fa-instagram"></i
+        ></a>
+        <a class="footer-social-item" href="#"
+          ><i class="fa-solid fa-infinity"></i
+        ></a>
+      </div>
+    </footer>
+
+    <script src="../static/js/page.js"></script>
+  </body>
+
+<!-- Mirrored from super-tips-rho.vercel.app/contact.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Mar 2024 04:32:23 GMT -->
+</html>

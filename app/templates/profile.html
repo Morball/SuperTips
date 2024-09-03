@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+  
+<!-- Mirrored from super-tips-rho.vercel.app/profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Mar 2024 04:32:25 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SuperTips Profile</title>
+    <link rel="icon" href="../static/images/icon.jpg">
+    <link rel="stylesheet" href="../static/css/profile.css" />
+    <style>
+      .alertbox{
+      height:45px;
+      width:fit-content;
+      display:flex;
+      justify-content:center;
+      padding:10px;
+      align-items:center;
+      border-radius:25px;
+      font-size:large;
+      margin-bottom:25px;
+      }
+      
+      
+      .alert-success{
+        background-color:rgb(101, 243, 101);
+        color:white;
+      }
+      
+      .alert-error{
+      background-color:rgb(252, 48, 48);
+      color:white;
+      }
+      
+      </style>
+    <script
+      src="../static/kit.fontawesome.com/1e03d39da6.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Open+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <a class="header-logo" href="{{url_for('home')}}">
+        <i class="fa-solid fa-star logo-icon"></i>
+        SuperTips
+      </a>
+      <div class="header-menu">
+        <a class="header-menu-item" href="{{url_for('home')}}">Home</a>
+        <a class="header-menu-item" href="{{url_for('dashboard')}}">Dashboard</a>
+        <a class="header-menu-item" href="{{url_for('profile')}}">Profile</a>
+      </div>
+      <button class="header-button">
+        <img src="../static/images/user.png" class="header-user-image" />
+      </button>
+      <button class="header-mobile-button">
+        <div class="header-mobile-button-line"></div>
+        <div class="header-mobile-button-line"></div>
+        <div class="header-mobile-button-line"></div>
+      </button>
+    </header>
+    <nav class="mobile-menu">
+      <a class="mobile-menu-item" href="{{url_for('home')}}">Home</a>
+      <a class="mobile-menu-item" href="{{url_for('dashboard')}}">Dashboard</a>
+      <a class="mobile-menu-item" href="{{url_for('profile')}}">Profile</a>
+    </nav>
+    <main>
+      
+      <div class="sidebar">
+        <img src="../static/images/user.png" class="user-image" />
+        <div class="user-name">{{user.username}}</div>
+        <div class="user-date">
+          SuperTips user since : <span>{{ user.signup_date| strftime('%Y-%m-%d') }}</span>
+        </div>
+        <div class="user-date">
+          {%if sub_active%}
+          
+            Subscription: <span style="color:rgb(35, 153, 35)">Active</span> 
+            Ends: {{user.sub_expire| strftime('%Y-%m-%d')}}     
+           
+          {%else%}
+          Subscription: <span style="color:rgb(156, 45, 45)">Inactive</span>, <a href="/#pricing">renew</a>
+          {%endif%}          
+        </div>
+        <div class="user-item-container">
+          <div class="user-item">
+            <div class="user-item-label">Username</div>
+            <div class="user-item-input-container">
+              <input type="text" class="user-item-input username_update_input" value="{{user.username}}" />
+              <div class="user-item-icon">
+                <i class="fa-solid fa-pencil"></i>
+              </div>
+            </div>
+          </div>
+          <div class="user-item">
+            <div class="user-item-label">Email</div>
+            <div class="user-item-input-container">
+              <input
+                type="text"
+                class="user-item-input email_update_input"
+                value="{{user.email}}"
+
+              />
+              <div class="user-item-icon">
+                <i class="fa-solid fa-pencil"></i>
+              </div>
+            </div>
+          </div>
+          <div class="user-item">
+            <div class="user-item-label">Password</div>
+            <div class="user-item-input-container">
+              <input
+                type="password"
+                class="user-item-input password_update_input"
+                value=""
+              />
+              <div class="user-item-icon">
+                <i class="fa-solid fa-pencil"></i>
+              </div>
+            </div>
+          </div>
+           
+      
+        </div>
+        <div class="user-button-box">
+          <a class="user-button-withdraw update_info_btn"  >Update Info</a>
+        </div> 
+        <br>
+        <div class="user-info">Your referral code : <span>{{user.ref_code}}</span></div>
+        <div class="user-info">Registered referrals : <span>{{user.refs}} </span></div>
+        <div class="user-info">Estimated earnings : <span>${{user.refs*3.5}}</span></div>
+        <div class="user-button-box">
+          <a class="user-button-logout" href="{{url_for('logout')}}">Log out</a>
+          <button class="user-button-withdraw">Request withdraw</button>
+        </div>
+      </div>
+      
+      <div class="main">
+        <center>
+          {%for cat,msg in get_flashed_messages(with_categories=true)%}
+          <h2 class="alertbox alert-{{cat}}">{{msg}}</h2>
+          {%endfor%}
+        </center>
+        <div class="main-title">My Bets</div>
+
+        {% for match in ctx %}
+
+        
+        
+        <div class="betting-container" style="margin-bottom:24px">
+          <div class="betting-Item">
+            <div class="betting-team-box">
+              <div class="betting-team">
+                <img src="{{match['competitors'][0]['img']}}" class="betting-team-image" />
+                <p class="betting-team-name">{{match["competitors"][0]["name"]}}</p>
+              </div>
+              <div class="betting-status-time-container">
+                <div class="betting-status-container">
+                  {%if match["odds"][0]["price"]<match["odds"][2]["price"]%}
+                  <span style="color: #ff6363">{{(match["odds"][0]["price"])|round(1)}}</span> :
+                  <span style="color: #63ff7c">{{(match["odds"][2]["price"])|round(1)}}</span>
+
+                  {%else%}
+
+
+
+                  <span style="color: #63ff7c">{{(match["odds"][0]["price"])|round(1)}}</span> :
+
+                  <span style="color: #ff6363">{{(match["odds"][2]["price"])|round(1)}}</span>
+                  {%endif%}
+
+                </div>
+                <div class="betting-time-container">{{match["startDate"]}}</div>
+              </div>
+              <div class="betting-team">
+                <img src="{{match['competitors'][1]['img']}}" class="betting-team-image" />
+                <p class="betting-team-name">{{match["competitors"][1]["name"]}}</p>
+              </div>
+            </div>
+            <div class="betting-button-box">
+              <a class="betting-button" href="/analysis/{{match['id']}}">View bet</a>
+            </div>
+          </div>
+        </div>
+
+
+
+        {%endfor%}
+
+
+
+
+
+
+
+      </div>
+      </div>
+    </main>
+
+    <script src="../static/js/page.js"></script>
+
+    <script>
+      function openBetModal() {
+        var modal = document.getElementById("modal");
+        var betModalContent = document.getElementById("bet-modal-content");
+
+        modal.style.display = "block";
+        setTimeout(function () {
+          betModalContent.style.transform = "scale(1)";
+        }, 10);
+      }
+
+      function closeBetModal() {
+        var modal = document.getElementById("modal");
+        var betModalContent = document.getElementById("bet-modal-content");
+
+        betModalContent.style.transform = "scale(0)";
+        setTimeout(function () {
+          modal.style.display = "none";
+        }, 300);
+      }
+    </script>
+
+
+
+<script>
+
+$(".update_info_btn").on("click", function(){
+let username=$(".username_update_input").val()
+let password=$(".password_update_input").val()
+let email=$(".email_update_input").val()
+
+let postdata=JSON.stringify({"username":username,"password":password,"email":email})
+$.ajax({
+method:"POST",
+url:"/updateUser",
+data:postdata,
+contentType:"application/json",
+success:function(){
+
+document.location="http://127.0.0.1:5000/login"
+
+}
+})
+
+
+
+
+})
+
+
+</script>
+
+
+
+
+  </body>
+
+</html>

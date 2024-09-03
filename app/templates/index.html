@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+  
+<!-- Mirrored from super-tips-rho.vercel.app/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Mar 2024 04:32:19 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SuperTips</title>
+    <link rel="icon" href="../static/images/icon.jpg">
+    <link rel="stylesheet" href="../static/css/styles.css" />
+    <style>
+      .alertbox{
+      height:45px;
+      width:fit-content;
+      display:flex;
+      justify-content:center;
+      padding:10px;
+      align-items:center;
+      border-radius:25px;
+      font-size:large;
+      margin-bottom:25px;
+      }
+      
+      
+      .alert-success{
+        background-color:rgb(101, 243, 101);
+        color:white;
+      }
+      
+      .alert-error{
+      background-color:rgb(252, 48, 48);
+      color:white;
+      }
+      
+      </style>
+    <script
+      src="../static/kit.fontawesome.com/1e03d39da6.js"
+      crossorigin="anonymous"
+    ></script>
+    
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Open+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-logo">
+        <i class="fa-solid fa-star logo-icon"></i>
+        SuperTips
+      </div>
+      <div class="header-menu">
+        <a class="header-menu-item" href="#pricing">Pricing</a>
+        <a class="header-menu-item" href="{{url_for('contact')}}">Contact</a>
+        <a class="header-menu-item" href="#testimonials">Testimonials</a>
+        <a class="header-menu-item" href="{{url_for('dashboard')}}">Dashboard</a>
+      </div>
+      {{motd}}
+      {%if "user_id" not in session%}
+      <a class="header-button" href="{{url_for('login')}}">Sign In</a>
+      {%endif%}
+      <button class="header-mobile-button">
+        <div class="header-mobile-button-line"></div>
+        <div class="header-mobile-button-line"></div>
+        <div class="header-mobile-button-line"></div>
+      </button>
+    </header>
+    <nav class="mobile-menu">
+      <a class="mobile-menu-item" href="#pricing">Pricing</a>
+      <a class="mobile-menu-item" href="{{url_for('contact')}}">Contact</a>
+      <a class="mobile-menu-item" href="#testimonials">Testimonials</a>
+      <a class="mobile-menu-item" href="{{url_for('dashboard')}}">Dashboard</a>
+      {%if "user_id" not in session%}
+
+      <a class="mobile-menu-auth-button" href="{{url_for('login')}}">Sign In</a>
+      {%endif%}
+    </nav>
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1 class="hero-title">
+            Enhance your sports betting using the power of AI
+          </h1>
+          <div class="hero-button-container">
+            <img class="hero-button-image1" src="../static/images/cloud3.png" />
+            <a class="hero-button" href="#pricing">Check out our plans!</a>
+            <img class="hero-button-image2" src="../static/images/cloud1.png" />
+          </div>
+          <img class="hero-content-image" src="../static/images/cloud2.png" />
+        </div>
+        <div class="hero-image-container">
+          <img class="hero-image" src="../static/images/landing-hero.png" />
+        </div>
+        <div class="hero-detail">
+          <div class="hero-detail-item-text">
+            <p class="hero-detail-item-title">
+              Advanced statistics and probability calculations
+            </p>
+            <p class="hero-detail-item-content">
+              We use state of the art technology including machine learning
+              models to make sure you get the highest win percentage
+            </p>
+          </div>
+          <div class="hero-detail-item-image">
+            <img src="../static/images/landing-hero-detail.png" />
+          </div>
+          <div class="hero-detail-item-text"></div>
+          <div class="hero-detail-item-image">
+            <p class="hero-detail-item-title">
+              Community driven decissions and development
+            </p>
+            <p class="hero-detail-item-content">
+              We take great pride in our community of informed betting
+              enjoyers,therefore it plays a massive part in our research and
+              development process. Reach out to us if you feel you need!
+            </p>
+          </div>
+        </div>
+        <img class="hero-image-cloud" src="../static/images/cloud1.png" />
+      </section>
+
+      <section id="pricing" class="pricing">
+        <img src="../static/images/cloud1.png" class="pricing-image-1" />
+        <img src="../static/images/cloud1.png" class="pricing-image-2" />
+<!--        <div class="pricing-item">
+          <p class="pricing-item-title">Novice</p>
+          <p class="pricing-item-price">$24.99 <span>/ month</span></p>
+          <div class="pricing-item-line"></div>
+          <div class="pricing-item-detail">
+            <p class="pricing-item-detail-item">
+              <i class="fa-solid fa-check pricing-item-detail-item-icon"></i>
+              Basic MOTD access
+            </p>
+            <p class="pricing-item-detail-item">
+              <i class="fa-solid fa-check pricing-item-detail-item-icon"></i>
+              Basic match personalisation
+            </p>
+            <p class="pricing-item-detail-item">
+              <i class="fa-solid fa-check pricing-item-detail-item-icon"></i>
+              Multi-Sport coverage
+            </p>
+            <p class="pricing-item-detail-item">
+              <i class="fa-solid fa-check pricing-item-detail-item-icon"></i>
+              Guaranteed results
+            </p>
+          </div>
+          <button class="pricing-item-button">Get started</button>
+        </div>-->
+
+
+
+
+
+
+
+
+
+        <div class="pricing-item">
+          <p class="pricing-item-title">Novice</p>
+          <p class="pricing-item-price">$24.99 <span>/ month</span></p>
+
+          <button class="pricing-item-button"  onclick="document.location='/checkout/1'">Get started</button>
+        </div>
+        <div class="pricing-item pricing-item-active">
+          <p class="pricing-item-popular">Best deal </p>
+          <p class="pricing-item-title">Advanced</p>
+          <p class="pricing-item-price">$99.99 <span>/ 6 months</span></p>
+          <div class="pricing-item-line"></div>
+          <div class="pricing-item-detail">
+
+
+            <p class="pricing-item-detail-item">
+              <i
+                class="fa-solid fa-check-double pricing-item-detail-item-icon"
+              ></i>
+              Custom tips alerts
+            </p>
+            <p class="pricing-item-detail-item">
+              <i
+                class="fa-solid fa-check-double pricing-item-detail-item-icon"
+              ></i>
+              API access
+            </p>
+            <p class="pricing-item-detail-item">
+              <i
+                class="fa-solid fa-check-double pricing-item-detail-item-icon"
+              ></i>
+              Early access to updates
+            </p>
+            <p class="pricing-item-detail-item">
+              <i
+                class="fa-solid fa-check-double pricing-item-detail-item-icon"
+              ></i>
+              Priority customer support
+            </p>
+            <p class="pricing-item-detail-item">
+              <i
+                class="fa-solid fa-check-double pricing-item-detail-item-icon"
+              ></i>
+              Personalized betting strategies
+            </p>
+          </div>
+          <button class="pricing-item-button pricing-item-button-active"  onclick="document.location='/checkout/3'">
+            Get started
+          </button>
+        </div>
+        <div class="pricing-item">
+          <p class="pricing-item-title">Intermediate</p>
+          <p class="pricing-item-price">$59.99 <span>/ 3 months</span></p>
+          <div class="pricing-item-detail">
+
+          </div>
+          <button class="pricing-item-button" onclick="document.location='/checkout/2'">Get started</button>
+        </div>
+      </section>
+
+      <section id="testimonials" class="testimonials">
+        <div class="testimonials-item">
+          <img class="testimonials-item-image" src="../static/images/test1.jpg" style="border-radius:100%"/>
+          <p class="testimonials-item-title">John Anderson, 34</p>
+          <p class="testimonials-item-content">
+            "The insights from this app are unmatched. My betting success has soared. It's user-friendly and consistently accurate. A must-have for any serious bettor."
+          </p>
+        </div>
+        <div class="testimonials-item">
+          <img class="testimonials-item-image" src="../static/images/test3.jpg" style="border-radius:100%" />
+          <p class="testimonials-item-title">David Martinez, 29</p>
+          <p class="testimonials-item-content">
+            "Since using this app, I've seen remarkable improvements in my bets. The data analysis is spot on. Highly recommend for anyone in sports betting."
+          </p>
+        </div>
+        <div class="testimonials-item">
+          <img class="testimonials-item-image" src="../static/images/test2.jpg" style="border-radius:100%" />
+          <p class="testimonials-item-title">Michael Thompson, 42</p>
+          <p class="testimonials-item-content">
+            "This app transformed my betting strategy. The predictions are incredibly reliable, and the interface is intuitive. It's the best tool for sports betting enthusiasts."
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer-company">SuperTips &copy; 2024</p>
+      <div class="footer-menu">
+        <a class="footer-menu-item" href="/#pricing">Product</a>
+        <a class="footer-menu-item" href="/legal">Legal</a>
+        <a class="footer-menu-item" href="/contact">Contact</a>
+      </div>
+      <div class="footer-social">
+        <a class="footer-social-item" href="#"
+          ><i class="fa-brands fa-twitter"></i
+        ></a>
+        <a class="footer-social-item" href="#"
+          ><i class="fa-brands fa-linkedin"></i
+        ></a>
+        <a class="footer-social-item" href="#"
+          ><i class="fa-brands fa-instagram"></i
+        ></a>
+        <a class="footer-social-item" href="#"
+          ><i class="fa-solid fa-infinity"></i
+        ></a>
+      </div>
+    </footer>
+
+    <script src="../static/js/page.js"></script>
+  </body>
+
+<!-- Mirrored from super-tips-rho.vercel.app/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Mar 2024 04:32:22 GMT -->
+</html>

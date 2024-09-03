@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  
+<!-- Mirrored from super-tips-rho.vercel.app/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Mar 2024 04:32:19 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SuperTips Checkout</title>
+    <link rel="icon" href="../static/images/icon.jpg">
+    <link rel="stylesheet" href="../static/css/styles.css" />
+
+    <script
+      src="../static/kit.fontawesome.com/1e03d39da6.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        html{
+            color:white;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+            background-color:#44357d
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .product-card {
+            background-color: #44357d;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            width: 320px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .product-card img {
+            max-width: 100%;
+            border-radius: 4px;
+        }
+
+        .product-title {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+
+        .product-price {
+            font-size: 20px;
+            color: yellow;
+            margin: 10px 0;
+        }
+
+        .product-perks {
+            text-align: left;
+            list-style: none;
+            padding: 0;
+        }
+
+        .product-perks li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .product-perks li::before {
+            content: '•';
+            color: #a89ac8; /* Lighter shade of purple */
+            font-size: 20px;
+            margin-right: 8px;
+        }
+
+        #payment-form {
+            color:white;
+            background-color: #44357d;
+            border-radius: 8px;
+            padding: 20px;
+            width: 320px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .StripeElement {
+            box-sizing: border-box;
+            
+            height: 40px;
+
+            padding: 10px 12px;
+
+            border: 1px solid white;
+            border-radius: 4px;
+            background-color: #44357d;
+            
+            box-shadow: 0 1px 3px 0 #e6ebf1;
+            -webkit-transition: box-shadow 150ms ease;
+            transition: box-shadow 150ms ease;
+            color:white;
+        }
+
+        .StripeElement--focus {
+            box-shadow: 0 1px 3px 0 #cfd7df;
+        }
+
+        .StripeElement--invalid {
+            border-color: #fa755a;
+        }
+        .StripeElement input{
+            color:white;
+        }
+        .StripeElement--webkit-autofill {
+            background-color: #fefde5 !important;
+        }
+
+        button {
+            background-color: yellow;
+            color: #44357d;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #e6c200;
+        }
+
+        #error-message {
+            margin-top: 12px;
+            color: #fa755a;
+        }
+    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Open+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+
+
+    <main>
+        <div class="container">
+            <div class="product-card" onclick="document.location='/'">
+                <div class="header-logo">
+                    <i class="fa-solid fa-star logo-icon"></i>
+                        <span>SuperTips {{ctx['name']}}</span>
+                  </div>
+                <div class="product-price">${{ctx['amount']}} / {{ctx["months"]}} months</div>
+
+            </div>
+            <form id="payment-form">
+                <div id="card-element"></div>
+                <button type="submit" style="margin-top:1rem">Checkout</button>
+                <br>
+                <span style="font-size:10px">Provided by <a href="https://stripe.com">Stripe</a></span>
+                <div id="error-message"></div>
+            </form>
+        </div>
+    
+        <script>
+            document.addEventListener('DOMContentLoaded', async () => {
+                const stripe = Stripe('pk_test_51HXB9EETvIzkH3GdEU2ss1TTzBkxHHZ01SCq9Pu8Sxh6WrHZOGptu3Rw75eEHp8gU4CIzhqfKVyrD3xjzmXGU4x200pY0uwUCv');
+    
+                const clientSecret = "{{client_secret}}"
+    
+                const elements = stripe.elements();
+                const cardElement = elements.create('card',{
+                    style: {
+                        base: {
+                            color: '#fff',
+                            fontFamily: 'Arial, sans-serif',
+
+                        },
+                        invalid: {
+                            color: '#fa755a'
+                        }
+                    }
+                });
+                cardElement.mount('#card-element');
+    
+                const form = document.getElementById('payment-form');
+                form.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+    
+                    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+                        payment_method: {
+                            card: cardElement,
+                        }
+                    });
+    
+                    if (error) {
+                        document.getElementById('error-message').textContent = error.message;
+                    } else {
+                        document.location="/profile"
+                    }
+                });
+            });
+        </script>
+    </main>
+
+
+    <script src="../static/js/page.js"></script>
+  </body>
+
+<!-- Mirrored from super-tips-rho.vercel.app/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Mar 2024 04:32:22 GMT -->
+</html>

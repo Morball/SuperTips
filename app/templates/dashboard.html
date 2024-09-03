@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from super-tips-rho.vercel.app/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Mar 2024 04:32:23 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SuperTips Dashboard</title>
+  <link rel="icon" href="../static/images/icon.jpg">
+  <link rel="stylesheet" href="../static/css/dashboard.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="../static/kit.fontawesome.com/1e03d39da6.js" crossorigin="anonymous"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Open+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap"
+    rel="stylesheet" />
+    <style>
+      .alertbox{
+      height:45px;
+      width:fit-content;
+      display:flex;
+      justify-content:center;
+      padding:10px;
+      align-items:center;
+      border-radius:25px;
+      font-size:large;
+      margin-bottom:25px;
+      }
+      
+      
+      .alert-success{
+        background-color:rgb(101, 243, 101);
+        color:white;
+      }
+      
+      .alert-error{
+      background-color:rgb(252, 48, 48);
+      color:white;
+      }
+      
+      </style>
+</head>
+
+<body>
+  <header class="header"  >
+    <a class="header-logo" href="{{url_for('home')}}" style="display:flex">
+      <i class="fa-solid fa-star logo-icon"></i>
+      SuperTips <span style="font-size:xx-small">beta</span>
+    </a>
+    <div class="header-menu">
+      <a class="header-menu-item" href="{{url_for('home')}}">Home</a>
+      <a class="header-menu-item" href="{{url_for('dashboard')}}">Dashboard</a>
+      <a class="header-menu-item" href="{{url_for('profile')}}">Profile</a>
+    </div>
+    <a class="header-button" href="/profile">
+      <img src="../static/images/user.png" class="header-user-image" />
+    </a>
+    <button class="header-mobile-button">
+      <div class="header-mobile-button-line"></div>
+      <div class="header-mobile-button-line"></div>
+      <div class="header-mobile-button-line"></div>
+    </button>
+  </header>
+  <nav class="mobile-menu">
+    <a class="mobile-menu-item" href="{{url_for('home')}}">Home</a>
+    <a class="mobile-menu-item" href="{{url_for('dashboard')}}">Dashboard</a>
+    <a class="mobile-menu-item" href="{{url_for('profile')}}">Profile</a>
+  </nav>
+  <main style="margin-top:7rem">
+
+    <div class="sidebar">
+      <div class="category-container">
+        {%for sport in ctx%}
+        <div class="category">
+          <div class="sport category-title-container">
+            <div class="category-title">{{sport["sport"]["name"]}} <img
+                src="https://sb2widgetsstatic-altenar2.biahosted.com/assets/sprites/sport-icons-pack-1.4/stack/sprite.svg#{{sport['sport']['iconName']}}"
+                style="width:25px;height:25px">
+              {%if sport["sport"]["hasLiveEvents"]==true%}
+              <span
+                style="width:25px;height:10px;background-color:red;color:white;margin-left:auto;font-size:10px">LIVE</span>
+              {%endif%}
+
+            </div>
+
+            <div class="sport-icon category-icon">
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+          </div>
+
+
+
+          <div class="sport-content category-content">
+
+
+            {% for league in sport["leagues"] %}
+
+
+
+
+
+            {%if league["hasLiveEvents"]==true%}
+            <div class="category-content-item league" data-leagueid="{{league['id']}}"
+              data-sportid="{{sport['sport']['id']}}">{{ league["name"] }} <span
+                style="width:25px;height:10px;background-color:red;color:white;margin-left:auto;font-size:10px">LIVE</span>
+            </div>
+            {%else%}
+
+            <div class="category-content-item league" data-leagueid="{{league['id']}}"
+              data-sportid="{{sport['sport']['id']}}">{{ league["name"] }} </div>
+
+            {%endif%}
+
+
+            {% endfor %}
+          </div>
+
+
+
+
+        </div>
+
+        {%endfor%}
+
+
+
+
+
+
+      </div>
+      <button class="sidebar-show-icon">
+        <i class="fa-solid fa-chevron-right sidebar-show-icon-icon"></i>
+      </button>
+    </div>
+
+
+
+
+
+    <div class="main">
+      
+    <center>
+      {%for cat,msg in get_flashed_messages(with_categories=true)%}
+      <h2 class="alertbox alert-{{cat}}">{{msg}}</h2>
+      {%endfor%}
+    </center>
+      <div style="display:flex;margin-bottom:2rem;margin-left:6rem" class="searchbox">
+      <form action="/dashboard" method="get" style="margin-left:3rem">
+
+        <input class="search" type="text" name="q" style="padding-left:1rem;width:16rem;height:3rem;background-color:rgba(255,255,255,0.1);border-radius:25px;border:none;color:white" placeholder="Search match">
+        <select class="sportselect" name="sport" style="width:16rem;height:3rem;background-color:rgba(255,255,255,0.1);border-radius:25px;border:none;color:white" id="">
+          {%for sport in ctx%}
+
+          <option value="{{sport['sport']['id']}}"style="width:4rem;height:3rem;background-color:#534780;border-radius:25px;border:none;color:white" >{{sport["sport"]["name"]}}</option>
+          {% endfor %}
+        </select>
+        <select class="leagueselect" name="league" style="width:16rem;height:3rem;background-color:rgba(255,255,255,0.1);border-radius:25px;border:none;color:white" id="">
+
+        </select>
+
+
+
+        <span class="submit" >
+         
+        <input type="checkbox" style="width:1rem;height:1rem;background-color:#47464b;border-radius:25px;border:none;color:#534780" name="live" id=""> Live
+        <input type="submit" style="width:4rem;height:3rem;background-color:rgba(255,255,255,0.1);border-radius:25px;border:none;color:white">
+        </span>
+
+
+      </form>
+    </div>
+
+
+
+
+      <div class="loader" style="  position: absolute;
+      top: 50%;
+      left: 55%;
+      transform: translate(-50%, -55%);margin-top:6rem"></div>
+
+      <div class="betting-container">
+
+        
+        {% if motd_list|length > 0 %}
+
+        {% for match in motd_list %}
+
+            {% if match["odds"]|length > 0 %}
+
+
+                  {%if match["isLive"]%}
+                        {%if (match["odds"][0]["price"])|round(0)!=0 or (match["odds"][2]["price"])|round(0)!=0%}
+
+                        <div class="betting-Item">
+                          <center><span style="background-color:red;color:white; width:30px;height:10px">LIVE</span></center>
+                                  {%if match["analysed"]%}
+                                  <center>
+                                    <span style="width:30px;height:10px;color:#63ff7c">Analysed</span>
+                                  </center>  
+                                  {%else%}
+                                  <center>
+                                    <span style="width:30px;height:10px;color:red">Not analysed</span>
+                                  </center>  
+
+                                  {%endif%}
+                          <div class="betting-team-box">
+                            <div class="betting-team" style="margin-right:50px">
+
+                              {%if match['competitors'][0] is not none%}
+
+                              <img src="{{match['competitors'][0]['img']}}" class="betting-team-image" />
+                              {%else%}
+                              <img src="https://www.seekpng.com/png/detail/28-289657_espn-soccer-team-logo-default.png"
+                                class="betting-team-image">
+                              {%endif%}
+
+                              <p class="betting-team-name" style="font-size:14px">{{match["competitors"][0]["name"]}}</p>
+                            </div>
+                            <center>
+                              <div class="betting-status-time-container">
+
+                                <div class="betting-status-container">
+                                  <p class="betting-team-name" style="font-size:20px;padding-bottom:25px">
+                                    <center> <span class="first-team-score" style="margin-right:10px">{{match["score"][0]}}</span>:<span class="second-team-score" style="margin-left:10px">{{match["score"][1]}}</span></center>
+                                </p>
+
+                              
+                                {%if match["odds"]|length>2%}
+                                          
+                                            {%if match["odds"][0]["price"]<match["odds"][2]["price"]%}
+                                            <span style="color: #ff6363">{{(match["odds"][0]["price"])|round(1)}}</span> :
+                                            <span style="color: #63ff7c">{{(match["odds"][2]["price"])|round(1)}}</span>
+
+                                            {%else%}
+
+
+
+                                            <span style="color: #63ff7c">{{(match["odds"][0]["price"])|round(1)}}</span> :
+
+                                            <span style="color: #ff6363">{{(match["odds"][2]["price"])|round(1)}}</span>
+                                            {%endif%}
+
+                                {%else%}
+
+
+                                            {%if match["odds"][0]["price"]<match["odds"][1]["price"]%}
+                                            <span style="color: #ff6363">{{(match["odds"][0]["price"])|round(1)}}</span> :
+                                            <span style="color: #63ff7c">{{(match["odds"][1]["price"])|round(1)}}</span>
+
+                                            {%else%}
+
+
+
+                                            <span style="color: #63ff7c">{{(match["odds"][0]["price"])|round(1)}}</span> :
+
+                                            <span style="color: #ff6363">{{(match["odds"][1]["price"])|round(1)}}</span>
+                                            {%endif%}
+
+
+
+                                {%endif%}
+                               
+                                  <div class="betting-time-container">{{match["liveTime"]}}</div>
+
+
+
+                                </div>
+
+                                <div class="betting-time-container">{{match["liveTime"]}}</div>
+                              </div>
+                            </center>
+
+
+                            <div class="betting-team" style="margin-left:50px">
+
+
+                              {%if match['competitors'][1] is not none%}
+
+                              <img src="{{match['competitors'][1]['img']}}" class="betting-team-image" />
+
+
+                              {%else%}
+                              <img src="https://www.seekpng.com/png/detail/28-289657_espn-soccer-team-logo-default.png"
+                                class="betting-team-image">
+
+                              {%endif%}
+
+
+                              <p class="betting-team-name" style="font-size:14px">{{match["competitors"][1]["name"]}}</p>
+                            </div>
+                          </div>
+                          <div class="betting-button-box">
+                            <button class="betting-button" onclick="openAnalysisModal()">
+                              Analysis
+                            </button>
+
+                          </div>
+                          
+                        </div>
+
+                        {%endif%}
+
+                  {%else%}
+
+                        {%if (match["odds"][0]["price"])|round(0)!=0 or (match["odds"][2]["price"])|round(0)!=0%}
+
+                        <div class="betting-Item">
+                          <center><span class="betting-team-name"style="font-size:12px;">{{match['startDate']}}</span></center>
+                          {%if match["analysed"]%}
+                          <center>
+                            <span style="width:30px;height:10px;color:#63ff7c">Analysed</span>
+                          </center>  
+                          {%else%}
+                          <center>
+                            <span style="width:30px;height:10px;color:red">Not analysed</span>
+                          </center>  
+
+                          {%endif%}
+                          <div class="betting-team-box">
+                            <div class="betting-team" style="margin-right:50px">
+
+                              {%if match['competitors'][0] is not none%}
+
+                              <img src="{{match['competitors'][0]['img']}}" class="betting-team-image" />
+                              {%else%}
+                              <img src="https://www.seekpng.com/png/detail/28-289657_espn-soccer-team-logo-default.png"
+                                class="betting-team-image">
+                              {%endif%}
+
+                              <p class="betting-team-name" style="font-size:14px">{{match["competitors"][0]["name"]}}</p>
+                            </div>
+                            <center>
+                              <div class="betting-status-time-container">
+
+                                <div class="betting-status-container" style="display:flex;margin-bottom:2rem">
+
+
+
+                                {%if match["odds"]|length>2%}
+                                          
+                                            {%if match["odds"][0]["price"]<match["odds"][2]["price"]%}
+                                            <span style="color: #ff6363">{{(match["odds"][0]["price"])|round(1)}}</span> :
+                                            <span style="color: #63ff7c">{{(match["odds"][2]["price"])|round(1)}}</span>
+
+                                            {%else%}
+
+
+
+                                            <span style="color: #63ff7c">{{(match["odds"][0]["price"])|round(1)}}</span> :
+
+                                            <span style="color: #ff6363">{{(match["odds"][2]["price"])|round(1)}}</span>
+                                            {%endif%}
+
+                                {%else%}
+
+
+                                            {%if match["odds"][0]["price"]<match["odds"][1]["price"]%}
+                                            <span style="color: #ff6363">{{(match["odds"][0]["price"])|round(1)}}</span> :
+                                            <span style="color: #63ff7c">{{(match["odds"][1]["price"])|round(1)}}</span>
+
+                                            {%else%}
+
+
+
+                                            <span style="color: #63ff7c">{{(match["odds"][0]["price"])|round(1)}}</span> :
+
+                                            <span style="color: #ff6363">{{(match["odds"][1]["price"])|round(1)}}</span>
+                                            {%endif%}
+
+
+
+                                {%endif%}
+
+                                
+
+
+
+                                </div>
+
+                              </div>
+                            </center>
+                            <div class="betting-team" style="margin-left:50px">
+
+
+                              {%if match['competitors'][1] is not none%}
+
+                              <img src="{{match['competitors'][1]['img']}}" class="betting-team-image" />
+
+
+                              {%else%}
+                              <img src="https://www.seekpng.com/png/detail/28-289657_espn-soccer-team-logo-default.png"
+                                class="betting-team-image">
+
+                              {%endif%}
+
+
+                              <p class="betting-team-name" style="font-size:14px">{{match["competitors"][1]["name"]}}</p>
+                            </div>
+                          </div>
+                          <div class="betting-button-box" >
+                            <a class="betting-button" href="{{url_for('analysis',match_id=match['id'])}}">
+                              Analysis
+                            </a>
+
+                          </div>
+                          
+                        </div>
+
+                        {%endif%}
+
+                  {%endif%}
+
+            {%endif%}             
+        {% endfor %}
+
+
+{%else%}
+<Span style="  position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+margin-top:6rem;
+">There are no apropriate matches we could find.</Span>
+{%endif%}
+
+
+
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </main>
+  <div id="modal" class="modal">
+    <div class="bet-modal-content" id="bet-modal-content">
+      <span class="bet-modal-close" onclick="closeBetModal()">&times;</span>
+      <div class="history-container">
+        <div class="history-title">Bets History</div>
+        <div class="history-content">
+          <div class="history-item history-item-success">
+            <p>Chelsea wins, over 3.5 goals, Chelsea first goal</p>
+            <p>14</p>
+          </div>
+          <div class="history-item history-item-warning">
+            <p>Chelsea wins, chelsea first goal</p>
+            <p>8</p>
+          </div>
+          <div class="history-item history-item-fail">
+            <p>West Ham wins, West ham first goal</p>
+            <p>32</p>
+          </div>
+          <div class="history-item history-item-warning">
+            <p>Draw, over 3.5 goals</p>
+            <p>15</p>
+          </div>
+          <div class="history-item history-item-success">
+            <p>Chelsea wins, over 3.5 goals, both teams score</p>
+            <p>19</p>
+          </div>
+        </div>
+        <button class="history-button">Propose more bets</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+  <div id="analysis-modal" class="analysis-modal">
+    <div class="analysis-modal-content" id="analysis-modal-content">
+      <span class="analysis-modal-close" onclick="closeAnalysisModal()">&times;</span>
+      <div class="chat-container">
+        <div class="chat">
+          <div class="team-container">
+            <img src="../static/images/team2.png" class="team-image" />
+            <div class="team-detail">
+              <p class="team-title">Performance history</p>
+              <p class="team-info">
+                West Ham <span style="color: #ff6363">1.6</span>
+              </p>
+            </div>
+          </div>
+          <div class="main-chat">
+            <div class="main-chart-container">
+              <canvas id="team-chart-1"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="chat">
+          <div class="team-container">
+            <img src="../static/images/team1.png" class="team-image" />
+            <div class="team-detail">
+              <p class="team-title">Performance history</p>
+              <p class="team-info">
+                West Ham <span style="color: #63ff7c">1.6</span>
+              </p>
+            </div>
+          </div>
+          <div class="main-chat">
+            <div class="main-chart-container">
+              <canvas id="team-chart-2"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <script src="../static/cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../static/js/page.js"></script>
+  <script>
+    const ctx = document.getElementById("team-chart-1");
+
+    var myLineChart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+        datasets: [{
+          label: "Sales",
+          data: [6, 5.3, 4.9, 4.5, 4.1, 3.9, 3.9, 4, 4.1, 4, 3.7, 3],
+          fill: false,
+          borderColor: "#EFC738",
+          borderWidth: 3,
+          tension: 0.4,
+        }, ],
+      },
+      options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: {
+              color: "#ffffff33",
+              lineWidth: 1,
+              borderDash: [5, 5],
+              tickColor: false,
+            },
+            ticks: {
+              display: false,
+            },
+          },
+
+          x: {
+            grid: {
+              display: false,
+            },
+            ticks: {
+              color: "white",
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+      },
+    });
+
+    const ctx1 = document.getElementById("team-chart-2");
+
+    var myLineChart = new Chart(ctx1, {
+      type: "line",
+      data: {
+        labels: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
+        datasets: [{
+          label: "Sales",
+          data: [6, 5.3, 4.9, 4.5, 4.1, 3.9, 3.9, 4, 4.1, 4, 3.7, 3],
+          fill: false,
+          borderColor: "#EFC738",
+          borderWidth: 3,
+          tension: 0.4,
+        }, ],
+      },
+      options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: {
+              color: "#ffffff33",
+              lineWidth: 1,
+              borderDash: [5, 5],
+              tickColor: false,
+            },
+            ticks: {
+              display: false,
+            },
+          },
+
+          x: {
+            grid: {
+              display: false,
+            },
+            ticks: {
+              color: "white",
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+      },
+    });
+
+    function openBetModal() {
+      var modal = document.getElementById("modal");
+      var betModalContent = document.getElementById("bet-modal-content");
+
+      modal.style.display = "block";
+      setTimeout(function () {
+        betModalContent.style.transform = "scale(1)";
+      }, 10);
+    }
+
+    function closeBetModal() {
+      var modal = document.getElementById("modal");
+      var betModalContent = document.getElementById("bet-modal-content");
+
+      betModalContent.style.transform = "scale(0)";
+      setTimeout(function () {
+        modal.style.display = "none";
+      }, 300);
+    }
+
+    function openAnalysisModal() {
+      var modal = document.getElementById("analysis-modal");
+      var analysisModalContent = document.getElementById(
+        "analysis-modal-content"
+      );
+
+      modal.style.display = "block";
+      setTimeout(function () {
+        analysisModalContent.style.transform = "scale(1)";
+      }, 10);
+    }
+
+    function closeAnalysisModal() {
+      var modal = document.getElementById("analysis-modal");
+      var analysisModalContent = document.getElementById(
+        "analysis-modal-content"
+      );
+
+      analysisModalContent.style.transform = "scale(0)";
+      setTimeout(function () {
+        modal.style.display = "none";
+      }, 300);
+    }
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Function to update league options based on selected sport
+      function updateLeagueOptions(sportId) {
+        const leagueSelect = document.querySelector(".leagueselect");
+        leagueSelect.innerHTML = ""; // Clear previous options
+  
+        // Fetch all elements with the same data-sportid
+        const leagueElements = document.querySelectorAll(`.category-content-item.league[data-sportid="${sportId}"]`);
+  
+        leagueElements.forEach(function(leagueElement) {
+          const leagueId = leagueElement.getAttribute('data-leagueid');
+          const leagueName = leagueElement.textContent.trim();
+          
+          // Create and append new option
+          const option = document.createElement("option");
+          option.value = leagueId;
+          option.textContent = leagueName;
+          option.style.width = "4rem";
+          option.style.height = "3rem";
+          option.style.backgroundColor = "#534780";
+          option.style.borderRadius = "25px";
+          option.style.border = "none";
+          option.style.color = "white";
+          leagueSelect.appendChild(option);
+        });
+      }
+  
+      // Add event listener to the sport select element
+      document.querySelector(".sportselect").addEventListener("change", function() {
+        const selectedSportId = this.value;
+        updateLeagueOptions(selectedSportId);
+      });
+  
+      // Populate leagueselect with values for the first sport on document load
+      const firstSportId = document.querySelector(".sportselect").value;
+      if (firstSportId) {
+        updateLeagueOptions(firstSportId);
+      }
+    });
+  </script>
+  
+  
+  
+
+
+
+
+
+
+
+
+
+</body>
+
+
+
+
+<!-- Mirrored from super-tips-rho.vercel.app/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Mar 2024 04:32:24 GMT -->
+
+</html>

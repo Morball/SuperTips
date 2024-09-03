@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Admin Dashboard</title>
+    <link rel="icon" href="../static/images/icon.jpg">
+    <!-- Custom fonts for this template-->
+    <link href="../static/css/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="../static/css/admin/css/sb-admin-2.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+       
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+             
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                 
+                    </div>
+
+
+                      <!-- Modal Structure -->
+                      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Solve report</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" id="modalAnalysisId">
+                              <textarea id="modalTextarea" class="form-control" rows="4"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary" id="applyChangesBtn">Apply Changes</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+
+
+
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                All users</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ctx["users_count"]}}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Expected monthly Revenue</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${{ctx["estimated_earnings"]}}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Active Subs
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ctx["active_subs"]}}</div>
+                                                </div>
+                                         
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Expected OpenAI costs</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${{ctx["est_costs"]}}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Row -->
+
+                 
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Content Column -->
+                        <div id="content">
+
+                            <!-- Topbar -->
+  
+                            <!-- End of Topbar -->
+            
+                            <!-- Begin Page Content -->
+                            <div class="container-fluid">
+            
+                                <!-- Page Heading -->
+                                <h2>Users</h2>
+                                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small searchfield" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary searchbutton" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- DataTales Example -->
+                                <div class="card shadow mb-4 usertable" style="width:93%">
+                                 
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Id</th>
+                                                        <th>Username</th>
+                                                        <th>Email</th>
+                                                        <th>Sub expire</th>
+                                                        <th>Signed Up</th>
+                                                        <th>Refs</th>
+                                                        <th>Ref code</th>
+                                                        <th>Signup Ref</th>
+                                                        <th>Admin</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                    
+                                                <tbody class="usertable-body">
+                                                    {%for user in ctx["users"]%}
+                                                    <tr>
+
+                                                        <form method="post" action="/admin/updateUser">
+                                                        
+                                                        <td><input value="{{user.id}}" name="id" style="display:hidden" type="hidden">{{user.id}}</td>
+                                                        <td><input name="user" style="border:1px rgb(155, 155, 155)" type="text" value="{{user.username}}"></td>
+                                                        <td><input name="email" style="border:1px rgb(155, 155, 155)" type="text" value="{{user.email}}"></td>
+                                                        <td><input name="sub_expire" style="border:1px rgb(155, 155, 155)" type="text" value="{{user.sub_expire}}"></td>
+                                                        <td><input name="signup_date" style="border:1px rgb(155, 155, 155)" type="text" value="{{user.signup_date}}"></td>
+                                                        <td><input name="refs" style="border:1px rgb(155, 155, 155)" type="text" value="{{user.refs}}"></td>
+                                                        <td><input name="ref_code" style="border:1px rgb(155, 155, 155)" type="text" value="{{user.ref_code}}"></td>
+                                                        <td><input name="signup_ref" style="border:1px rgb(155, 155, 155)" type="text" value="{{user.signup_ref}}"></td>
+                                                        <td><input name="admin" style="border:1px rgb(155, 155, 155)" type="text" value="{{user.admin}}"></td>
+                                                        <td>                                               
+                                                            <input type="submit" class="btn btn-success" type="button" data-dismiss="modal" value="Update">
+                                                            <a class="btn btn-danger" href="/admin/deleteuser/{{user.id}}" type="button" data-dismiss="modal">Delete</a>                                                        </td>
+                                                        </td>
+                                                    </form>
+
+                                                    </tr>
+                                                    {%endfor%}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <h2>Analysis reports</h2>
+
+                                <div class="card shadow mb-4 usertable" style="width:93%">
+                                 
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Id</th>
+                                                        <th>No. of reports</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                    
+                                                <tbody class="usertable-body">
+                                                    {%for report in ctx["reports"]%}
+                                                    <tr>
+
+                                                        
+                                                        <td>{{report.match_id}}</td>
+                                                        <td>{{report.number_of_reports}}</td>
+
+                                                        <td>               
+                                                            <a type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" onclick="opensolvemodal('{{report.match_id}}')">Solve Report</a>     
+                                                            <a class="btn btn-danger" href="/admin/deletereport?match_id={{report.match_id}}" type="button" data-dismiss="modal">Delete report</a>                                                        
+                                                        </td>
+                                                        <script>
+                                                            function opensolvemodal(match_id){
+                                                                $.ajax({
+                                                                    url:`/admin/getanalysis?id=${match_id}`,                                                                   
+                                                                    method:"GET",
+                                                                    success:function(data){
+
+    
+                                                                        const jsonObject = JSON.parse(data);
+                                                                        // Format JSON with 2 spaces indentation
+                                                                        const formattedJson = JSON.stringify(jsonObject, null, 2);
+                                                                        // Set the formatted JSON back to the textarea
+                                                                        
+
+                                                                        $("#modalTextarea").val(formattedJson)
+                                                                        $("#modalAnalysisId").val(match_id)
+
+                                                                    }
+
+
+                                                                })
+                                                                
+
+
+
+                                                            }
+                                                        </script>
+                                                    </tr>
+                                                    {%endfor%}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+
+
+
+                                <form action="/admin/updatemotd" method="post" style="width:93%">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlTextarea1">Update MOTD</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1"  name="motdcontent"rows="24">{{ctx['motd'].content}}</textarea>
+                                      </div>
+
+                                      <input type="submit" class="btn btn-success" type="button" data-dismiss="modal" value="Update">
+
+                                </form>
+
+
+
+
+
+
+                                <!--ANALYSIS REPORT SECTION-->
+                               
+
+
+
+
+                                
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+            
+
+
+
+
+
+
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        $(".searchbutton").on("click", function(){
+
+            $.ajax({
+                url:`/admin/searchuser?id=${$(".searchfield").val()}`,
+                method:"GET",
+                success:function(resp){
+                    console.log(resp)
+                    $(".usertable-body").empty()
+
+                    $(".usertable-body").append(
+                    `
+                     <tr>
+
+                                                        <form method="post" action="/admin/updateUser">
+                                                        
+                                                        <td><input value="${resp['id']}" name="id" style="display:hidden" type="hidden">${resp['id']}</td>
+                                                        <td><input name="user" style="border:1px rgb(155, 155, 155)" type="text" value="${resp['username']}"></td>
+                                                        <td><input name="email" style="border:1px rgb(155, 155, 155)" type="text" value="${resp['email']}"></td>
+                                                        <td><input name="sub_expire" style="border:1px rgb(155, 155, 155)" type="text" value="${resp['sub_expire']}"></td>
+                                                        <td><input name="signup_date" style="border:1px rgb(155, 155, 155)" type="text" value="${resp['signup_date']}"></td>
+                                                        <td><input name="refs" style="border:1px rgb(155, 155, 155)" type="text" value="${resp['refs']}"></td>
+                                                        <td><input name="ref_code" style="border:1px rgb(155, 155, 155)" type="text" value="${resp['ref_code']}"></td>
+                                                        <td><input name="signup_ref" style="border:1px rgb(155, 155, 155)" type="text" value="${resp['signup_ref']}"></td>
+                                                        <td><input name="admin" style="border:1px rgb(155, 155, 155)" type="text" value="${resp['admin']}"></td>
+                                                        <td>                                               
+                                                            <input type="submit" class="btn btn-success" type="button" data-dismiss="modal" value="Update">
+                                                            <a class="btn btn-danger" href="/admin/deleteuser/${resp['id']}" type="button" data-dismiss="modal">Delete</a>                                                        </td>
+                                                        </td>
+                                                    </form>
+
+                                                    </tr>
+                    
+                    `
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    )
+
+                },
+                error:function(){
+                    $(".usertable-body").empty()
+
+
+                }
+
+
+
+
+
+            })
+
+
+
+
+        })
+
+
+
+    </script>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="../static/css/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="../static/css/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="../static/css/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="../static/css/admin/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="../static/css/admin/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="../static/css/admin/js/demo/chart-area-demo.js"></script>
+    <script src="../static/css/admin/js/demo/chart-pie-demo.js"></script>
+    <script>
+        // JavaScript to handle the Apply Changes button
+        document.getElementById("applyChangesBtn").addEventListener("click", function() {
+          
+            postdata={
+                "match_id":$("#modalAnalysisId").val(),
+                "content":$("#modalTextarea").val()
+            }
+            $.ajax({
+                url:"/admin/updateAnalysis",
+                method:"POST",
+                contentType:"application/json",
+                data:JSON.stringify(JSON.stringify(postdata)),
+                success:function(){
+                    $('#exampleModal').modal('hide');
+                }
+
+
+            })
+
+
+        });
+      </script>
+
+</body>
+
+</html>
