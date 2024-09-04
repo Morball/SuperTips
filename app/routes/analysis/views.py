@@ -19,6 +19,16 @@ def analysis(match_id):
         return redirect(url_for("login"))
     
     
+    match=MatchAnalysis.query.filter_by(match_id=match_id).first()
+    if match is not None:
+        
+        if ProfileBet.query.filter_by(match_id=match_id,user_id=session["user_id"]).first() is None:
+            return render_template("analysis.html",ctx=json.loads(match.match_analysis_content))
+        else:
+            return render_template("analysis.html",ctx=json.loads(match.match_analysis_content),has_fav=True)
+    
+    
+    
     today=datetime.now()-timedelta(days=1)
     if MatchAnalysis.query.filter_by(match_id=match_id).first() is not None:
         analysis_today=len(MatchAnalysis.query.filter(MatchAnalysis.date_created>=today,MatchAnalysis.created_by==session["user_id"]).all())
@@ -30,13 +40,7 @@ def analysis(match_id):
     
     
     
-    match=MatchAnalysis.query.filter_by(match_id=match_id).first()
-    if match is not None:
-        
-        if ProfileBet.query.filter_by(match_id=match_id,user_id=session["user_id"]).first() is None:
-            return render_template("analysis.html",ctx=json.loads(match.match_analysis_content))
-        else:
-            return render_template("analysis.html",ctx=json.loads(match.match_analysis_content),has_fav=True)   
+   
         
     
     event=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetEventDetails?culture=en-US&timezoneOffset=-120&integration=mrbitro&deviceType=1&numFormat=en-GB&eventId={match_id}")
