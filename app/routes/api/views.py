@@ -6,7 +6,7 @@ import random
 import json
 from app.util.apiscrape import load_get_response
 from datetime import datetime
-
+from app.db.models import MatchAnalysis
 from flask import session
 
 
@@ -106,6 +106,9 @@ def getUpcoming():
                         
                 event["competitors"]=eventdetails["competitors"]
                 event["isLive"]=False
+                event["analysed"]=False
+                if MatchAnalysis.query.filter_by(match_id=event["id"]).first() is not None:
+                    event["analysed"]=True
                 events.append(event)
                 
         live=json.loads(getLiveNow(sportid,compid))

@@ -72,9 +72,22 @@ function renderUpcoming(array){
 console.log(array)
 if(array){
 pricestring=``;
-
+analysedString=``
 
 for(let i=0;i<array.length;i++){
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -90,8 +103,16 @@ for(let i=0;i<array.length;i++){
                <span style="color: #63ff7c">${Math.round(array[i]["odds"][0]["price"] * Math.pow(10, 1)) / Math.pow(10, 1)}</span>`;
   }
   
+if(array[i]["analysed"]){
+analysedString=`<center>
+                                    <span style="width:30px;height:10px;color:#63ff7c">Analysed</span>
+                                  </center>`
+}
+else{
+analysedString=`<span style="width:30px;height:10px;color:red">Not analysed</span>
+                                  </center>`
 
-
+}
 
 
 
@@ -102,7 +123,7 @@ if(array[i]["isLive"]){
 
   <div class="betting-Item">
   <center><span style="background-color:red;color:white; width:30px;height:10px">LIVE</span></center>
-
+    ${analysedString}
   <div class="betting-team-box">
     <div class="betting-team" style="margin-right:50px">
 
@@ -155,7 +176,7 @@ else{
 
   <div class="betting-Item">
   <center><span class="betting-team-name"style="font-size:12px;">${array[i]['startDate']}</span></center>
-
+${analysedString}
   <div class="betting-team-box">
     <div class="betting-team" style="margin-right:50px">
 
