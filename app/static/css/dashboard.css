@@ -1062,7 +1062,14 @@ color:white;
   }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 430px) {
+
+
+        
+}
+
+
+@media screen and (max-width: 430px) {
   .bet-modal-content {
     width: 20rem;
     padding: 40px 20px;

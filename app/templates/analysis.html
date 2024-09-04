@@ -11208,13 +11208,44 @@
     }
 
 
-    @media screen and (max-width: 425px) {
+    @media screen and (max-width: 390px) {
+      .actionbuttons{
+        font-size:8px;
+        width:800px;
+        padding-right:430px;
+      }
+      .match_description{
+        height:fit-content
+      }
+      .right-side{
+        width:600px;
+        padding-right:350px;
+      }
+    }
+
+    @media screen and (max-width: 430px) {
+      body{
+        align-items:center;
+       
+      }
+      .right-side{
+        margin-left:40px;
+      }
       .unfavourite-button{
         font-size:10px;
         width:1px;
+        margin-bottom:1000px;
       }
-
+      .team-chart-1{
+        position:absolute;
+        width:1000px;
+      }
+      .match_description{
+        height:fit-content
+      }
     }
+
+
   </style>
 </head>
 
@@ -11339,8 +11370,8 @@
                 <div class="history-title">Best bets</div>
                 <div class="history-content">
                   <div class="history-item history-item-success" style="font-weight:900px;background-color:#63ff7c">
-                    <p style="color:white">{{ctx["openai_analysis"]["best_bets"][0]["bet_name"]}}</p>
-                    <p style="color:white">{{ctx["openai_analysis"]["best_bets"][0]["bet_price"]}}</p>
+                    <p style="color:black">{{ctx["openai_analysis"]["best_bets"][0]["bet_name"]}}</p>
+                    <p style="color:black">{{ctx["openai_analysis"]["best_bets"][0]["bet_price"]}}</p>
                   </div>
                   <div class="history-item history-item-success">
                     <p>{{ctx["openai_analysis"]["best_bets"][1]["bet_name"]}}</p>
@@ -11394,7 +11425,7 @@
       </div>
 
 
-
+<div class="actionbuttons">
       <center style="margin-top:20px; margin-bottom: 200px;">
         {%if has_fav%}
 
@@ -11417,7 +11448,7 @@
 
       </center>
      
-
+</div>
 
 
 
@@ -11435,6 +11466,10 @@
   <script src="../static/cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     const ctx = document.getElementById("team-chart-1");
+    fontsizex=14;
+    if (screen.width<=430){
+      fontsizex=5
+    }
 
     var myLineChart = new Chart(ctx, {
       type: "line",
@@ -11490,7 +11525,7 @@
               display: true,
               color: "white",
               font: {
-                size: 12
+                size: fontsizex
               },
               rotation: -45
             },
@@ -11569,6 +11604,9 @@
             },
             ticks: {
               color: "white",
+              font: {
+                size: fontsizex
+              },
             },
           },
         },
