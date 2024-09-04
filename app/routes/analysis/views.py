@@ -28,33 +28,33 @@ def analysis(match_id):
     
     
     
-    try:
-        match=MatchAnalysis.query.filter_by(match_id=match_id).first()
-        if match is not None:
-            
-            if ProfileBet.query.filter_by(match_id=match_id,user_id=session["user_id"]).first() is None:
-                return render_template("analysis.html",ctx=json.loads(match.match_analysis_content))
-            else:
-                return render_template("analysis.html",ctx=json.loads(match.match_analysis_content),has_fav=True)   
-            
+    
+    match=MatchAnalysis.query.filter_by(match_id=match_id).first()
+    if match is not None:
         
-        event=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetEventDetails?culture=en-US&timezoneOffset=-120&integration=mrbitro&deviceType=1&numFormat=en-GB&eventId={match_id}")
-        event["startDate"]=datetime.strptime(event["startDate"],"%Y-%m-%dT%H:%M:%SZ").strftime("%d.%m.%Y, %H:%M")
+        if ProfileBet.query.filter_by(match_id=match_id,user_id=session["user_id"]).first() is None:
+            return render_template("analysis.html",ctx=json.loads(match.match_analysis_content))
+        else:
+            return render_template("analysis.html",ctx=json.loads(match.match_analysis_content),has_fav=True)   
+        
+    
+    event=load_get_response(f"https://sb2frontend-altenar2.biahosted.com/api/widget/GetEventDetails?culture=en-US&timezoneOffset=-120&integration=mrbitro&deviceType=1&numFormat=en-GB&eventId={match_id}")
+    event["startDate"]=datetime.strptime(event["startDate"],"%Y-%m-%dT%H:%M:%SZ").strftime("%d.%m.%Y, %H:%M")
 
-        for competitor in event["competitors"]:
-            teamsearchresults=requests.get(f"https://s.livesport.services/api/v2/search/",params={"q":competitor["name"]}).json()
-            if len(teamsearchresults)!=0:
-                if len(teamsearchresults[0]["images"])!=0:
-                    for res in teamsearchresults:
-                        if res["participantTypes"]:
-                            for partype in res["participantTypes"]:
-                                if partype["name"]=="Player" and event["sport"]["id"] not in [77,68,72,71,84,81]:
-                                    if len(res["images"]) !=0:
-                                        competitor["img"]="https://static.flashscore.com/res/image/data/"+teamsearchresults[1]["images"][0]["path"]
-                                else:
-                                    if len(res["images"]) !=0:
-                                        competitor["img"]="https://static.flashscore.com/res/image/data/"+teamsearchresults[0]["images"][0]["path"]
-                                        
+    for competitor in event["competitors"]:
+        teamsearchresults=requests.get(f"https://s.livesport.services/api/v2/search/",params={"q":competitor["name"]}).json()
+        if len(teamsearchresults)!=0:
+            if len(teamsearchresults[0]["images"])!=0:
+                for res in teamsearchresults:
+                    if res["participantTypes"]:
+                        for partype in res["participantTypes"]:
+                            if partype["name"]=="Player" and event["sport"]["id"] not in [77,68,72,71,84,81]:
+                                if len(res["images"]) !=0:
+                                    competitor["img"]="https://static.flashscore.com/res/image/data/"+teamsearchresults[1]["images"][0]["path"]
+                            else:
+                                if len(res["images"]) !=0:
+                                    competitor["img"]="https://static.flashscore.com/res/image/data/"+teamsearchresults[0]["images"][0]["path"]
+    try:                                    
         if "sport" in event:                                  
             for ev in json.loads(getLiveNow(sportid=event["sport"]["id"], leagueid=event["champ"]["id"])):
                 if ev["id"]==event["id"]:

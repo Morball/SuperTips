@@ -262,7 +262,7 @@ for(let i=0;i<leagueDiv.length;i++){
 
       $.ajax({
         type: "POST",
-        url: "http://127.0.0.1:5000/getUpcoming",
+        url: "/getUpcoming",
         data: JSON.stringify(selectedleagues),
         contentType: "application/json", 
         success: function(response) {
