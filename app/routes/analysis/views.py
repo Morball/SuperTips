@@ -51,11 +51,17 @@ def analysis(match_id):
                         for partype in res["participantTypes"]:
                             if partype["name"]=="Player" and event["sport"]["id"] not in [77,68,72,71,84,81]:
                                 if len(res["images"]) !=0:
-                                    competitor["img"]="https://static.flashscore.com/res/image/data/"+teamsearchresults[1]["images"][0]["path"]
+                                    try:
+                                        competitor["img"]="https://static.flashscore.com/res/image/data/"+teamsearchresults[1]["images"][0]["path"]
+                                    except Exception as e:
+                                        competitor["img"]="../../static/img/icon.jpg"
                             else:
+                                
                                 if len(res["images"]) !=0:
-                                    competitor["img"]="https://static.flashscore.com/res/image/data/"+teamsearchresults[0]["images"][0]["path"]
-    try:                                    
+                                    try:
+                                        competitor["img"]="https://static.flashscore.com/res/image/data/"+teamsearchresults[0]["images"][0]["path"]
+                                    except Exception as e:
+                                        competitor["img"]="../../static/img/icon.jpg"            
         if "sport" in event:                                  
             for ev in json.loads(getLiveNow(sportid=event["sport"]["id"], leagueid=event["champ"]["id"])):
                 if ev["id"]==event["id"]:
