@@ -112,7 +112,7 @@ def analysis(match_id):
             db.session.commit()
         
             return render_template("analysis.html",ctx=event)
-    except Exception as e:
+    
       
         flash("Could not create match analysis, please try again later","error")
         print("FOUND EXCEPTION IN ANALYSIS",e)
