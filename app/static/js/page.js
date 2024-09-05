@@ -104,13 +104,10 @@ for(let i=0;i<array.length;i++){
   }
   
 if(array[i]["analysed"]){
-analysedString=`<center>
-                                    <span style="width:30px;height:10px;color:#63ff7c">Analysed</span>
-                                  </center>`
+analysedString=`<center><span style="width:30px;height:10px;color:#63ff7c">Analysed</span></center>`
 }
 else{
-analysedString=`<span style="width:30px;height:10px;color:red">Not analysed</span>
-                                  </center>`
+analysedString=`<center><span style="width:30px;height:10px;color:red">Not analysed</span></center>`
 
 }
 
