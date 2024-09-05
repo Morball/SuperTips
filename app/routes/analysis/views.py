@@ -30,11 +30,11 @@ def analysis(match_id):
     
     
     today=datetime.now()-timedelta(days=1)
-    if MatchAnalysis.query.filter_by(match_id=match_id).first() is not None:
-        analysis_today=len(MatchAnalysis.query.filter(MatchAnalysis.date_created>=today,MatchAnalysis.created_by==session["user_id"]).all())
-        if analysis_today>=2:
-            flash("Maximum number of daily new analyses reached.","error")
-            return redirect(url_for("dashboard"))
+
+    analysis_today=len(MatchAnalysis.query.filter(MatchAnalysis.date_created>=today,MatchAnalysis.created_by==session["user_id"]).all())
+    if analysis_today>=2:
+        flash("Maximum number of daily new analyses reached.","error")
+        return redirect(url_for("dashboard"))
     
     
     
