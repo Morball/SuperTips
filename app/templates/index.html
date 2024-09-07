@@ -101,7 +101,7 @@
         <a class="header-menu-item" href="{{url_for('contact')}}">Contact</a>
         <a class="header-menu-item" href="#testimonials">Testimonials</a>
         <a class="header-menu-item" href="{{url_for('blog')}}">Blog</a>
-        
+        <a class="header-menu-item" href="{{url_for('dashboard')}}">Dashboard</a>
       </div>
       {{motd}}
       {%if "user_id" not in session%}
@@ -121,6 +121,7 @@
       <a class="mobile-menu-item" href="{{url_for('contact')}}">Contact</a>
       <a class="mobile-menu-item" href="#testimonials">Testimonials</a>
       <a class="header-menu-item" href="{{url_for('blog')}}">Blog</a>
+      <a class="header-menu-item" href="{{url_for('dashboard')}}">Dashboard</a>
 
       
       {%if "user_id" not in session%}
