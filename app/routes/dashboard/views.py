@@ -13,9 +13,6 @@ def dashboard():
         flash("Authorization required",'error')
         return redirect(url_for("login"))
     
-    if User.query.filter_by(id=session["user_id"]).first().sub_expire<datetime.now():
-        flash("No subscriptions active","error")
-        return redirect(url_for("profile"))
     print("hit dashboard route")
     
     if request.args.get("sport") or request.args.get("league"):

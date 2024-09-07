@@ -9,6 +9,7 @@ from app.db.models import MatchAnalysis,db,ProfileBet
 from app.util.authutil.login import login_required
 from flask import flash
 from datetime import timedelta
+from app.db.models import User
 from app.util.apiscrape import load_get_response
 from flask import redirect,url_for,session
 
@@ -18,7 +19,9 @@ def analysis(match_id):
     if "user_id" not in session:
         return redirect(url_for("login"))
     
-    
+    if User.query.filter_by(id=session["user_id"]).first().sub_expire<datetime.now():
+        flash("No subscriptions active","error")
+        return redirect(url_for("profile"))
     match=MatchAnalysis.query.filter_by(match_id=match_id).first()
     if match is not None:
         
