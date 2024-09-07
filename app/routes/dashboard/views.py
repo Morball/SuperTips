@@ -9,9 +9,7 @@ from flask import session,redirect,url_for,flash,request,render_template
 
 @app.get("/dashboard")
 def dashboard():
-    if "user_id" not in session:
-        flash("Authorization required",'error')
-        return redirect(url_for("login"))
+
     
     print("hit dashboard route")
     
