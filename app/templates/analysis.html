@@ -11321,12 +11321,12 @@
                     <p class="team-title">Performance history</p>
                     <p class="team-info">
                       {{ctx['competitors'][0]['name']}} 
-
+                      
 
                       {%if ctx["odds"][0]["price"]<ctx["odds"][2]["price"]%}
-                      <span style="color: #ff6363">{{(ctx["odds"][0]["price"])|round(1)}}</span>
-                      {%else%}
                       <span style="color: #63ff7c">{{(ctx["odds"][0]["price"])|round(1)}}</span>
+                      {%else%}
+                      <span style="color: #ff6363">{{(ctx["odds"][0]["price"])|round(1)}}</span>
                       {%endif%}
 
 
@@ -11351,11 +11351,11 @@
 
 
 
-
+                     
                       {%if ctx["odds"][0]["price"]>ctx["odds"][2]["price"]%}
-                      <span style="color: #ff6363">{{(ctx["odds"][2]["price"])|round(1)}}</span>
-                      {%else%}
                       <span style="color: #63ff7c">{{(ctx["odds"][2]["price"])|round(1)}}</span>
+                      {%else%}
+                      <span style="color: #ff6363">{{(ctx["odds"][2]["price"])|round(1)}}</span>
                       {%endif%}
 
                     </p>

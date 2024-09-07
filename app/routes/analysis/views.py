@@ -17,6 +17,7 @@ from flask import redirect,url_for,session
 def analysis(match_id):
 
     if "user_id" not in session:
+        flash("Authorization required","error")
         return redirect(url_for("login"))
     
     if User.query.filter_by(id=session["user_id"]).first().sub_expire<datetime.now():

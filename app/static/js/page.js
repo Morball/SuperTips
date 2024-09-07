@@ -99,8 +99,8 @@ for(let i=0;i<array.length;i++){
   }
   
   else{
-  pricestring=`<span style="color: #ff6363">${Math.round(array[i]["odds"][2]["price"] * Math.pow(10, 1)) / Math.pow(10, 1)}</span> :
-               <span style="color: #63ff7c">${Math.round(array[i]["odds"][0]["price"] * Math.pow(10, 1)) / Math.pow(10, 1)}</span>`;
+  pricestring=`<span style="color: #63ff7c">${Math.round(array[i]["odds"][0]["price"] * Math.pow(10, 1)) / Math.pow(10, 1)}</span> :
+               <span style="color: #ff6363">${Math.round(array[i]["odds"][2]["price"] * Math.pow(10, 1)) / Math.pow(10, 1)}</span>`;
   }
   
 if(array[i]["analysed"]){

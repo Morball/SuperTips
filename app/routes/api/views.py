@@ -7,6 +7,7 @@ import json
 from app.util.apiscrape import load_get_response
 from datetime import datetime
 from app.db.models import MatchAnalysis
+from flask import flash,redirect,url_for
 from flask import session
 
 
@@ -35,7 +36,8 @@ headers = {
 @app.post("/getUpcoming")
 def getUpcoming():
     if "user_id" not in session:
-        return make_response(jsonify({"error":"not authorised"}),400)
+        flash("Authorization required","error")
+        return redirect(url_for("dashboard"))
     events=[]
     upcoming_events=request.json
     if len(upcoming_events)==0:
