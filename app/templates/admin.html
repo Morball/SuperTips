@@ -7,6 +7,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
+        <!-- Essential Meta Tags -->
+
+                
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Supertips - The ultimate AI-powered sports betting analysis app. Get real-time data-driven insights, predictions, and tips to maximize your winnings.">
+        <meta name="keywords" content="sports betting, AI analysis, betting predictions, betting tips, data-driven sports, football, betting strategies, value betting, odds analysis">
+        <meta name="author" content="Supertips">
+    
+        <!-- Open Graph Tags for Social Media -->
+        <meta property="og:title" content="Supertips - AI Sports Betting Analysis">
+        <meta property="og:description" content="Supertips uses AI to provide real-time insights, strategies, and predictions for sports betting enthusiasts.">
+        <meta property="og:url" content="https://supertips.com">
+        <meta property="og:type" content="website">
+    
+        <!-- Twitter Card Tags -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Supertips - AI-Powered Sports Betting Insights">
+        <meta name="twitter:description" content="Unlock the power of AI for smarter sports betting. Get real-time insights, predictions, and tips with Supertips.">
+
+    
     <meta name="author" content="">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
     integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
@@ -329,11 +350,63 @@
 
 
 
+                                <form action="/admin/createpost" method="post" style="width:93%;margin-top:5rem">
+                                    <div id="editor"></div>
+                                    <div class="form-group">
+                                        <label >Create Blog Post</label>
+                                        <br>
+                                        <textarea type="text" name="title" class="form-control" id="" placeholder="Title"></textarea>
+                                        <br>
+                                        <textarea type="text" name="subtitle" class="form-control" placeholder="Subtitle"></textarea>
+                                        <br>
+                                        <textarea name="content" id="content" class="form-control" placeholder="content" required style="height:20rem"></textarea>
+
+                                      </div>
+
+                                      <input type="submit" class="btn btn-success" type="button" data-dismiss="modal" value="Upload">
+
+                                </form>
 
 
-                                <!--ANALYSIS REPORT SECTION-->
-                               
+                              
+                                <h2>Blog posts</h2>
+                                <div class="card shadow mb-4 usertable" style="width:73%"></div>
+                                 
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Id</th>
+                                                        <th>Title</th>
+                                                        <th>Subtitle</th>
+                                                        <th>Date Created</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                    
+                                                <tbody class="usertable-body">
+                                                    {%for post in ctx["blogposts"]%}
+                                                    <tr>
 
+                                                        
+                                                        
+                                                        <td>{{post.id}}</td>
+                                                        <td>{{post.title}}</td>
+                                                        <td>{{post.subtitle}}</td>
+                                                        <td>{{post.date_created}}</td>
+                                                        <td>                                               
+                                                            <a class="btn btn-danger" href="{{url_for('deleteblogpost', id=post.id)}}" type="button" data-dismiss="modal">Delete</a>                                                        </td>
+                                                        </td>
+                                                    
+
+                                                    </tr>
+                                                    {%endfor%}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
 
 
 

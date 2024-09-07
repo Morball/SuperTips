@@ -10,6 +10,16 @@ from datetime import datetime
 db=SQLAlchemy(app)
 
 
+
+class BlogPost(db.Model):
+    id=db.Column(db.Integer, primary_key=True,unique=True,autoincrement=True)
+    title=db.Column(db.String(200))
+    subtitle=db.Column(db.String(200))
+    date_created=db.Column(db.DateTime, default=datetime.now())
+    content=db.Column(db.Text)
+
+
+
 class AnalysisReport(db.Model):
     id=db.Column(db.Integer, primary_key=True,unique=True,autoincrement=True)
     number_of_reports=db.Column(db.Integer,default=1)

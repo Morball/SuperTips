@@ -4,7 +4,7 @@ from app.db.models import User,Subs_Bought,MOTD
 from datetime import datetime, timedelta
 from flask import session,make_response,jsonify
 import json
-from app.db.models import MatchAnalysis,db,AnalysisReport
+from app.db.models import MatchAnalysis,db,AnalysisReport,BlogPost
 @app.route("/admin",methods=["GET","POST"])
 def admin():
     if "user_id" not in session:
@@ -20,6 +20,7 @@ def admin():
     est_earnings=0
     all_subs=Subs_Bought.query.all()
     motd=MOTD.query.all()[-1]
+    all_blogposts=BlogPost.query.all()
     expected_costs=0.33*len(MatchAnalysis.query.filter(MatchAnalysis.date_created>=thirty_days_ago).all())
     for sub in subs_this_month:
         if sub.sub_type==1:
@@ -37,7 +38,8 @@ def admin():
         "subs":all_subs,
         "now":datetime.now(),
         "motd":motd,
-        "reports":all_analysis_reports
+        "reports":all_analysis_reports,
+        "blogposts":all_blogposts
     }
     
     
@@ -209,3 +211,33 @@ def getanalysis():
     if not User.query.filter_by(id=session["user_id"]).first().admin:
         return redirect(url_for("dashboard"))
     return MatchAnalysis.query.filter_by(match_id=request.args.get("id")).first().match_analysis_content
+
+
+
+@app.post("/admin/createpost")
+def createblogpost():
+    if "user_id" not in session:
+        return redirect(url_for("dashboard"))
+    if not User.query.filter_by(id=session["user_id"]).first().admin:
+        return redirect(url_for("dashboard"))
+    title=request.form["title"]
+    subtitle=request.form["subtitle"]
+    content=request.form["content"]
+    newpost=BlogPost(title=title,subtitle=subtitle,content=content)
+    db.session.add(newpost)
+    db.session.commit()
+    return redirect(url_for("admin"))
+
+
+
+@app.get("/admin/deletepost/<id>")
+def deleteblogpost(id):
+    if "user_id" not in session:
+        return redirect(url_for("dashboard"))
+    if not User.query.filter_by(id=session["user_id"]).first().admin:
+        return redirect(url_for("dashboard"))
+    post=BlogPost.query.filter_by(id=id).first()
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('admin'))
+    

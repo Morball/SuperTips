@@ -6,9 +6,55 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SuperTips</title>
+
     <link rel="icon" href="../static/images/icon.jpg">
     <link rel="stylesheet" href="../static/css/styles.css" />
+
+    <!-- Essential Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Supertips - The ultimate AI-powered sports betting analysis app. Get real-time data-driven insights, predictions, and tips to maximize your winnings.">
+    <meta name="keywords" content="sports betting, AI analysis, betting predictions, betting tips, data-driven sports, football, betting strategies, value betting, odds analysis">
+    <meta name="author" content="Supertips">
+
+    <!-- Open Graph Tags for Social Media -->
+    <meta property="og:title" content="Supertips - AI Sports Betting Analysis">
+    <meta property="og:description" content="Supertips uses AI to provide real-time insights, strategies, and predictions for sports betting enthusiasts.">
+    <meta property="og:url" content="https://supertips.com">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Supertips - AI-Powered Sports Betting Insights">
+    <meta name="twitter:description" content="Unlock the power of AI for smarter sports betting. Get real-time insights, predictions, and tips with Supertips.">
+    <meta name="twitter:image" content="https://supertips.com/logo.png">
+
+    <!-- Title Tag (Primary SEO Element) -->
+    <title>Supertips - AI-Powered Sports Betting Insights and Analysis</title>
+
+
+    <!-- CSS Link -->
+
+    <!-- Schema Markup for Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Supertips Sports Betting AI",
+      "url": "https://supertips.com",
+      "description": "AI-powered app for real-time sports betting analysis and predictions.",
+      "applicationCategory": "Sports Betting",
+      "operatingSystem": "Web-based",
+      "offers": {
+        "@type": "Offer",
+        "price": "0.00",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+
+
     <style>
       .alertbox{
       height:45px;
@@ -54,11 +100,15 @@
         <a class="header-menu-item" href="#pricing">Pricing</a>
         <a class="header-menu-item" href="{{url_for('contact')}}">Contact</a>
         <a class="header-menu-item" href="#testimonials">Testimonials</a>
-        <a class="header-menu-item" href="{{url_for('dashboard')}}">Dashboard</a>
+        <a class="header-menu-item" href="{{url_for('blog')}}">Blog</a>
+        
       </div>
       {{motd}}
       {%if "user_id" not in session%}
       <a class="header-button" href="{{url_for('login')}}">Sign In</a>
+      
+      {%else%}
+      <a class="header-menu-item" href="{{url_for('dashboard')}}">Dashboard</a>
       {%endif%}
       <button class="header-mobile-button">
         <div class="header-mobile-button-line"></div>
@@ -70,11 +120,20 @@
       <a class="mobile-menu-item" href="#pricing">Pricing</a>
       <a class="mobile-menu-item" href="{{url_for('contact')}}">Contact</a>
       <a class="mobile-menu-item" href="#testimonials">Testimonials</a>
-      <a class="mobile-menu-item" href="{{url_for('dashboard')}}">Dashboard</a>
+      <a class="header-menu-item" href="{{url_for('blog')}}">Blog</a>
+
+      
       {%if "user_id" not in session%}
 
       <a class="mobile-menu-auth-button" href="{{url_for('login')}}">Sign In</a>
+
+{%else%}
+<a class="mobile-menu-item" href="{{url_for('dashboard')}}">Dashboard</a>
+
       {%endif%}
+
+
+
     </nav>
     <main>
       <section class="hero">

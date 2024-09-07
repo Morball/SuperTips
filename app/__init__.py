@@ -85,3 +85,4 @@ from app.routes.favourite import views
 from app.routes.payments import views
 from app.routes.legal import views
 from app.routes.admin import views
+from app.routes.blog import views
