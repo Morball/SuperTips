@@ -2,9 +2,9 @@ from flask import Flask
 from openai import OpenAI
 import datetime
 openai_client=OpenAI(
-      organization='org-5EO5OxiG8eThUSaTNI9jiHGZ',
-      project="proj_4andCRGA26fkGE9mPggGUj9i",
-      api_key="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"
+      organization=os.environ.get("OAI_ORG")',
+      project=os.environ.get("OAI_PROJECT"),
+      api_key=os.environ.get("OAI_APIKEY")
 )
 
 from flask_migrate import Migrate
@@ -31,6 +31,8 @@ request_headers={
          "authority":"b2frontend-altenar2.biahosted.com"
                 
          }
+
+
 app=Flask(__name__)
 app.config.from_pyfile("config.py")
 
